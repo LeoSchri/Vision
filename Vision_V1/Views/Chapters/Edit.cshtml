@@ -1,0 +1,29 @@
+﻿@model Vision_V1.Models.Chapter
+
+@{
+    ViewBag.Title = "Edit";
+    ViewBag.Controller = "Chapters";
+    Layout = "~/Views/Shared/Templates/EditTemplate.cshtml";
+}
+
+@section Title{@Model.Name}
+
+@section HiddenFields{
+    @Html.HiddenFor(model => model.ID)
+    @Html.HiddenFor(model => model.ArcId)
+}
+
+@section Attribute1Name{@Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "control-label col-lg-2" })}
+@section Attribute1Edit{
+    @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control" } })
+    @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
+}
+
+@section Attribute2Name{@Html.LabelFor(model => model.EstimatedDuration, htmlAttributes: new { @class = "control-label col-lg-3" })}
+@section Attribute2Edit{@Html.EnumDropDownListFor(model => model.EstimatedDuration, htmlAttributes: new { @class = "form-control" })}
+
+@section CancelButton{
+    <button type="button" class="btn btn-danger shadow" onclick="location.href='@Url.Action((string)Session["destinedMethod"], (string)Session["destinedController"])'">
+        <img src="~/Content/Icons/CancelWhite.png" alt="Cancel" class="small_image" />
+    </button>
+}

@@ -1,0 +1,76 @@
+﻿@model Vision_V1.Models.Plotline
+
+@{
+    ViewBag.Title = "Details";
+    ViewBag.Controller = "Plotlines";
+    Layout = "~/Views/Shared/Templates/DetailsTemplate.cshtml";
+}
+
+@section Title{@Model.Name}
+
+
+@section Links{
+    <button type="button" class="btn btn-primary" onclick="location.href='@Url.Action("Edit","Plotlines", new { id = Model.ID })'">
+        <img src="~/Content/Icons/Edit.png" alt="Edit" class="small_image" />
+    </button>
+    <button type="button" class="btn btn-primary" onclick="location.href='@Url.Action("Delete","Plotlines", new { id = Model.ID })'">
+        <img src="~/Content/Icons/Trash.png" alt="Delete" class="small_image" />
+    </button>
+    @{
+        var page = Vision_V1.ViewModels.PageManager.Pages.Find(p => p.Name == ViewBag.Title && p.Controller == ViewBag.Controller);
+        var index = Vision_V1.ViewModels.PageManager.Pages.IndexOf(page);
+        var isLast = false;
+        if (index == Vision_V1.ViewModels.PageManager.Pages.Count - 1)
+        {
+            isLast = true;
+        }
+    }
+    @if (Vision_V1.ViewModels.PageManager.Pages.Count > 1 && isLast)
+    {
+        <button type="button" class="btn btn-default disabled" onclick="location.href='@Url.Action("ChangeStructure","Page")'">
+            <img src="~/Content/Icons/SeperatorLight.png" alt="Seperator" class="small_image" />
+        </button>
+        <button type="button" class="btn btn-primary" onclick="location.href='@Url.Action("RemovePageWID","Page", new { id = index })'">
+            <img src="~/Content/Icons/Cancel.png" alt="Delete" class="small_image" />
+        </button>
+    }
+}
+
+@section Attribute1Name{@Html.DisplayNameFor(model => model.Name)}
+@section Attribute1Prop{@Html.DisplayFor(model => model.Name)}
+
+@section Attribute2Name{@Html.DisplayNameFor(model => model.Characters)}
+@section Attribute2Prop{
+    @if(Model.Characters != null && Model.Characters.Any())
+    {
+        foreach (var character in Model.Characters)
+        {
+            <button type="button" class="btn btn-link text-smaller" onclick="location.href='@Url.Action("Details","Characters", new { id = character.ID })'">
+                @Html.DisplayFor(modelItem => character.Name)
+            </button>
+        }    
+    }
+    else
+    {
+        <span>None</span>
+    }
+}
+
+@section Attribute3Name{@Html.DisplayNameFor(model => model.Summary)}
+@section Attribute3Prop{@Html.DisplayFor(model => model.Summary)}
+
+@section Attribute4Name{@Html.DisplayNameFor(model => model.LastModified)}
+@section Attribute4Prop{@Html.DisplayFor(model => model.LastModified)}
+
+@section ListOf{
+    <div>
+        <div>
+            @Html.Partial("~/Views/Scenes/Index.cshtml", Model.Scenes.ToList())
+        </div>
+        <div class="top-margin-20">
+            @Html.Partial("~/Views/Plotlines/IndexDP.cshtml", Model)
+        </div>
+    </div>
+}
+
+

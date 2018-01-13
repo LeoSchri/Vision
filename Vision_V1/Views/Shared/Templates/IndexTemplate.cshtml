@@ -1,0 +1,19 @@
+﻿
+@{
+    ViewBag.Title = "IndexTemplate";
+}
+
+<div class="border">
+    <div class="container title">
+        <div class="row padding-5">
+            <div class="col-lg-7">@RenderSection("Title",true)</div>
+            <div class="col-lg-5">
+                @RenderSection("Links",false)
+            </div>
+        </div>
+    </div>
+
+    <div class="container top-margin-10">
+        @RenderSection("Table",true)
+    </div>
+</div>

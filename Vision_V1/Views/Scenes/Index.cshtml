@@ -1,0 +1,211 @@
+﻿@model List<Vision_V1.Models.Scene>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/Templates/IndexTemplate.cshtml";
+}
+
+@section Title{Scenes}
+
+@section Links{
+    <span class="right">
+        @if(Vision_V1.ViewModels.PageManager.CurrentPlotline != null)
+        {
+            <button type="button" class="btn btn-primary" onclick="location.href='@Url.Action("Create","Scenes")'">
+                <img src="~/Content/Icons/New.png" alt="Create scene" class="small_image" />
+            </button>
+            <button type="button" class="btn btn-primary" onclick="location.href='@Url.Action("PickForP","Scenes")'">
+                <img src="~/Content/Icons/Add.png" alt="Pick scenes" class="small_image" />
+            </button>
+            if (Vision_V1.ViewModels.PageManager.CurrentScene != null)
+            {
+                <button type="button" class="btn btn-primary" onclick="location.href='@Url.Action("IndexToList","Scenes")'">
+                    <img src="~/Content/Icons/Minimize.png" alt="Back to list" class="small_image" />
+                </button>
+            }
+        }
+        else if (Vision_V1.ViewModels.PageManager.CurrentChapter != null)
+        {
+            <button type="button" class="btn btn-primary" onclick="location.href='@Url.Action("PickForC","Scenes")'">
+                <img src="~/Content/Icons/Add.png" alt="Pick scenes" class="small_image" />
+            </button>
+            if (Vision_V1.ViewModels.PageManager.CurrentScene != null)
+            {
+                <button type="button" class="btn btn-primary" onclick="location.href='@Url.Action("IndexToList","Scenes")'">
+                    <img src="~/Content/Icons/Minimize.png" alt="Back to list" class="small_image" />
+                </button>
+            }
+        }
+        else if (Vision_V1.ViewModels.PageManager.CurrentScene != null)
+        {
+            <button type="button" class="btn btn-primary" onclick="location.href='@Url.Action("List","Scenes")'">
+                <img src="~/Content/Icons/Minimize.png" alt="Back to list" class="small_image" />
+            </button>
+        }
+    </span>
+}
+
+@section Table{
+    @if (Model == null || !Model.Any())
+    {
+        <div class="row">
+            <div class="col-lg-11 col-lg-offset-1 padding-5">No Scenes created yet.</div>
+        </div>
+    }
+    else
+    {
+        <table class="table">
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.FirstOrDefault().Name)
+                </th>
+                @if(Vision_V1.ViewModels.PageManager.CurrentPlotline == null)
+                {
+                    <th>
+                        @Html.DisplayNameFor(model => model.FirstOrDefault().Plotlines)
+                    </th>
+                }
+                <th>
+                    @Html.DisplayNameFor(model => model.FirstOrDefault().Mood)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.FirstOrDefault().Weather)
+                </th>
+                <th>
+                    POV
+                </th>
+                <th>
+                    Location
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.FirstOrDefault().LastModified)
+                </th>
+                @if (Vision_V1.ViewModels.PageManager.CurrentChapter != null && Model.Count > 1)
+                {
+                    <th></th>
+                }
+                <th></th>
+            </tr>
+
+            @{
+                var sceneList = Model.OrderBy(model => model.OrderID== null).ThenBy(model=> model.OrderID).ToList();
+            }
+            @foreach (var scene in sceneList)
+            {
+                var color = Vision_V1.Models.Types.ColorSchema.PrimaryDark;
+                if (Vision_V1.ViewModels.PageManager.CurrentScene == scene)
+                {
+                    color = Vision_V1.Models.Types.ColorSchema.Gray.Light;
+                }
+                <tr style="background-color:@color">
+                    <td>
+                        @Html.DisplayFor(modelItem => scene.Name)
+                    </td>
+                    @if (Vision_V1.ViewModels.PageManager.CurrentPlotline == null)
+                    {
+                        <td>
+                            @if (scene.Plotlines != null && scene.Plotlines.Any())
+                            {
+                                foreach (var plotline in scene.Plotlines)
+                                {
+                                    <button type="button" class="btn btn-link" onclick="location.href='@Url.Action("Details","Plotlines", new { id = plotline.ID })'">
+                                        @plotline.Name
+                                    </button>
+                                }
+                            }
+                        </td>
+                    }
+                    <td>
+                        @Html.DisplayFor(modelItem => scene.Mood)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => scene.Weather)
+                    </td>
+                    <td>
+                        @if (scene.POVCharacterId == null)
+                        {
+                            <span>None</span>
+                        }
+                        else
+                        {
+                            <button type="button" class="btn btn-link" onclick="location.href='@Url.Action("Details","Characters", new { id = scene.POVCharacterId })'">
+                                @Html.DisplayFor(modelItem => scene.POVCharacter.Name)
+                            </button>
+                        }
+                    </td>
+                    <td>
+                        @if (scene.LocationId == null)
+                        {
+                            <span>None</span>
+                        }
+                        else
+                        {
+                            <button type="button" class="btn btn-link" onclick="location.href='@Url.Action("Details","Locations", new { id = scene.LocationId })'">
+                                @Html.DisplayFor(modelItem => scene.Location.Name)
+                            </button>
+                        }
+                    </td>
+                    <td class="text-smallest">
+                        @Html.DisplayFor(modelItem => scene.LastModified)
+                    </td>
+                    @if (Vision_V1.ViewModels.PageManager.CurrentChapter != null && Vision_V1.ViewModels.PageManager.CurrentChapter.Scenes.Count > 1)
+                    {
+                        <td>
+                            <span class="right">
+                                @if (sceneList.IndexOf(scene) > 0)
+                                {
+                                    <button type="button" class="btn btn-default" onclick="location.href='@Url.Action("MoveUp","Scenes", new { id = scene.ID })'">
+                                        <img src="~/Content/Icons/ArrowUpBlue.png" alt="Up" class="small_image" />
+                                    </button>
+                                }
+                                else if (Vision_V1.ViewModels.PageManager.HasPreviousChapter)
+                                {
+                                    <button type="button" class="btn btn-default" onclick="location.href='@Url.Action("MoveToPrevious","Scenes", new { id = scene.ID })'">
+                                        <img src="~/Content/Icons/ArrowUpSun.png" alt="ToPrevious" class="small_image" />
+                                    </button>
+                                }
+                                @if (sceneList.IndexOf(scene) != sceneList.Count - 1)
+                                {
+                                    <button type="button" class="btn btn-default" onclick="location.href='@Url.Action("MoveDown","Scenes", new { id = scene.ID })'">
+                                        <img src="~/Content/Icons/ArrowDownBlue.png" alt="Down" class="small_image" />
+                                    </button>
+                                }
+                                else if (Vision_V1.ViewModels.PageManager.HasNextChapter)
+                                {
+                                    <button type="button" class="btn btn-default" onclick="location.href='@Url.Action("MoveToNext","Scenes", new { id = scene.ID })'">
+                                        <img src="~/Content/Icons/ArrowDownSun.png" alt="ToNext" class="small_image" />
+                                    </button>
+                                }
+                            </span>
+                        </td>
+                    }
+                    <td>
+                        <span class="right">
+                            <button type="button" class="btn btn-default" onclick="location.href='@Url.Action("Details","Scenes", new { id = scene.ID })'">
+                                <img src="~/Content/Icons/Details.png" alt=" Details" class="small_image" />
+                            </button>
+                            <button type="button" class="btn btn-default" onclick="location.href='@Url.Action("Edit","Scenes", new { id = scene.ID })'">
+                                <img src="~/Content/Icons/Edit.png" alt=" Edit" class="small_image" />
+                            </button>
+                            @if (Vision_V1.ViewModels.PageManager.CurrentChapter != null)
+                            {
+                                <button type="button" class="btn btn-default" onclick="location.href='@Url.Action("RemoveFromChapter","Scenes", new { id = scene.ID })'">
+                                    <img src="~/Content/Icons/Remove.png" alt="Remove" class="small_image" />
+                                </button>
+                            }
+                            @if (Vision_V1.ViewModels.PageManager.CurrentPlotline != null)
+                            {
+                                <button type="button" class="btn btn-default" onclick="location.href='@Url.Action("RemoveFromPlotline","Scenes", new { id = scene.ID })'">
+                                    <img src="~/Content/Icons/Remove.png" alt="Remove" class="small_image" />
+                                </button>
+                            }
+                            <button type="button" class="btn btn-default" onclick="location.href='@Url.Action("Delete","Scenes", new { id = scene.ID })'">
+                                <img src="~/Content/Icons/Trash.png" alt=" Delete" class="small_image" />
+                            </button>
+                        </span>
+                    </td>
+                </tr>
+            }
+        </table>
+                }
+}

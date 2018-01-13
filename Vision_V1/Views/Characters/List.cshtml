@@ -1,0 +1,44 @@
+﻿@model List<Vision_V1.Models.Character>
+
+@{
+    ViewBag.Title = "List";
+    Layout = "~/Views/Shared/Templates/ListTemplate.cshtml";
+}
+
+@section Title{Characters}
+
+@section Links{
+    <button type="button" class="btn btn-primary right" onclick="location.href='@Url.Action("Index","Characters")'">
+        <img src="~/Content/Icons/Maximize.png" alt="Back to list" class="small_image" />
+    </button>
+}
+
+@section List{
+    @{
+        var characterList = Model.OrderBy(model => model.Name).ToList();
+    }
+    @if (characterList == null || !characterList.Any())
+    {
+        <div class="row">
+            <div class="col-lg-11 col-lg-offset-1 padding-5 gray_text">No entries</div>
+        </div>
+}
+else
+{
+    foreach (var character in characterList)
+    {
+        if (Vision_V1.ViewModels.PageManager.CurrentCharacter != null && Vision_V1.ViewModels.PageManager.CurrentCharacter.ID == character.ID)
+        {
+                <button type="button" class="btn btn-info btn-block" onclick="location.href='@Url.Action("Details", "Characters",new { id = character.ID })'">
+                    <span>@character.Name</span>
+                </button>
+            }
+            else
+            {
+                <button type="button" class="btn btn-standard btn-block" onclick="location.href='@Url.Action("Details", "Characters",new { id = character.ID })'">
+                    <span>@character.Name</span>
+                </button>
+            }
+        }
+    }
+}

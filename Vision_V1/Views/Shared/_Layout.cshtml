@@ -1,0 +1,106 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vision - A Novel planning tool</title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+
+</head>
+<body>
+    <div class="navbar navbar-inverse navbar-fixed-top paper">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle btn-primary" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                @if (User.Identity.IsAuthenticated)
+                {
+                    @Html.ActionLink("Vision", "Home", "Projects", new { area = "" }, new { @class = "navbar-brand" })
+                }
+                else
+                {
+                    @Html.ActionLink("Vision", "Welcome", "Home", new { area = "" }, new { @class = "navbar-brand" })
+                }
+            </div>
+            <div class="navbar-collapse collapse">
+                @if (User.Identity.IsAuthenticated && Vision_V1.ViewModels.PageManager.CurrentProject != null)
+                {
+                    <ul class="nav navbar-nav">
+                        <li>@Html.ActionLink("Structure", "Home", "Books")</li>
+                        <li>@Html.ActionLink("Plots", "Home", "Plotlines")</li>
+                        <li>@Html.ActionLink("Scenes", "Home", "Scenes")</li>
+                        <li>@Html.ActionLink("Characters", "Home", "Characters")</li>
+                        <li>@Html.ActionLink("Main characters", "Home", "MainCharacters")</li>
+                        <li>@Html.ActionLink("Locations", "Home", "Locations")</li>
+                       <li>@Html.ActionLink("Information", "Home", "Information")</li>
+                    </ul>
+                }
+                @Html.Partial("_LoginPartial")
+            </div>
+        </div>
+    </div>
+    <div class="container body-content">
+        @RenderBody()
+        <hr />
+        @{
+            var projectName = Vision_V1.ViewModels.PageManager.CurrentProject == null ? "No project loaded yet" : Vision_V1.ViewModels.PageManager.CurrentProject.Name;
+        }
+        <footer>
+            <div class="container">
+                <div class="row medium-gray_text text-smaller">
+                    <div class="col-lg-2">@DateTime.Now.Year Vision - A Novel planning tool</div>
+                    <div class="col-lg-10">
+                        @{
+                            var count = Vision_V1.ViewModels.PageManager.Pages.Count;
+                            var list = new List<int>();
+
+                            switch (count)
+                            {
+                                case 2: list = new List<int>() { 2, 3, 4 }; break;
+                                case 3: list = new List<int>() { 5, 6, 7, 8 }; break;
+                                case 4: list = new List<int>() { 9, 10, 11, 12 }; break;
+                                case 5: list = new List<int>() { 13, 14, 15, 16, 21 }; break;
+                                case 6: list = new List<int>() { 17, 18, 19, 20 }; break;
+                            }
+
+                            list.Remove(Vision_V1.ViewModels.PageManager.StructureId);
+                        }
+                        <span class="right">
+                            @if(Vision_V1.ViewModels.PageManager.Pages.Count > 1)
+                            {
+                                var currentStructure = $"Structure{Vision_V1.ViewModels.PageManager.StructureId}.png";
+                                <button type="button" class="btn btn-default disabled" onclick="location.href='@Url.Action("ChangeStructure","Page")'">
+                                    <img src="~/Content/Icons/@currentStructure" alt="Current structure" class="small_image" />
+                                </button>
+                                <button type="button" class="btn btn-default disabled" onclick="location.href='@Url.Action("ChangeStructure","Page")'">
+                                    <img src="~/Content/Icons/SeperatorDark.png" alt="Seperator" class="small_image" />
+                                </button>
+                            
+                                foreach (var item in list)
+                                {
+                                    var imageName = $"Structure{item}.png";
+                                    <button type="button" class="btn btn-default" onclick="location.href='@Url.Action("ChangeStructure","Page",new { id = item })'">
+                                        <img src="~/Content/Icons/@imageName" alt="ChangeStructure to @item" class="small_image" />
+                                    </button>
+                                }
+                                <button type="button" class="btn btn-default disabled" onclick="location.href='@Url.Action("ChangeStructure","Page")'">
+                                    <img src="~/Content/Icons/SeperatorDark.png" alt="Seperator" class="small_image" />
+                                </button>
+                            }
+                            Current project: @projectName
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </footer>
+    </div>
+
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @RenderSection("scripts", required: false)
+</body>
+</html>

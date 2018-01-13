@@ -1,0 +1,39 @@
+﻿@model Vision_V1.Models.Plotline
+
+@{
+    ViewBag.Title = "Delete";
+    ViewBag.Controller = "Plotlines";
+    Layout = "~/Views/Shared/Templates/DeleteTemplate.cshtml";
+}
+
+@section Typ{Plotline}
+
+@section Attribute1Name{@Html.DisplayNameFor(model => model.Name)}
+@section Attribute1Prop{@Html.DisplayFor(model => model.Name)}
+
+@section Attribute2Name{@Html.DisplayNameFor(model => model.Characters)}
+@section Attribute2Prop{
+    @if (Model.Characters != null && Model.Characters.Any())
+    {
+        foreach (var character in Model.Characters)
+        {
+            @Html.DisplayFor(modelItem => character.Name)
+        }
+    }
+    else
+    {
+        <span>None</span>
+    }
+}
+
+@section Attribute3Name{@Html.DisplayNameFor(model => model.Summary)}
+@section Attribute3Prop{@Html.DisplayFor(model => model.Summary)}
+
+@section Attribute4Name{@Html.DisplayNameFor(model => model.LastModified)}
+@section Attribute4Prop{@Html.DisplayFor(model => model.LastModified)}
+
+@section CancelButton{
+    <button type="button" class="btn btn-danger shadow" onclick="location.href='@Url.Action((string)Session["destinedMethod"], (string)Session["destinedController"])'">
+        <img src="~/Content/Icons/CancelWhite.png" alt="Cancel" class="small_image" />
+    </button>
+}

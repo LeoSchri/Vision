@@ -1,0 +1,44 @@
+﻿@model List<Vision_V1.Models.Relationship>
+
+@{
+    ViewBag.Title = "List";
+    Layout = "~/Views/Shared/Templates/ListTemplate.cshtml";
+}
+
+@section Title{Relationships}
+
+@section Links{
+    <button type="button" class="btn btn-primary right" onclick="location.href='@Url.Action("Details","Characters")'">
+        <img src="~/Content/Icons/ArrowLeft.png" alt="Back to list" class="small_image" />
+    </button>
+}
+
+@section List{
+    @{
+        var relationList = Model.OrderBy(model => model.ID).ToList();
+    }
+    @if (relationList == null || !relationList.Any())
+    {
+        <div class="row">
+            <div class="col-lg-11 col-lg-offset-1 padding-5 gray_text">No entries</div>
+        </div>
+    }
+    else
+    {
+        foreach (var relation in relationList)
+        {
+            if (Vision_V1.ViewModels.PageManager.CurrentRelationship != null && Vision_V1.ViewModels.PageManager.CurrentRelationship.ID == relation.ID)
+            {
+                <button type="button" class="btn btn-info btn-block disabled" onclick="location.href='@Url.Action("Details", "Relationships",new { id = relation.ID })'">
+                    <span>@relation.Name</span>
+                </button>
+            }
+            else
+            {
+                <button type="button" class="btn btn-standard btn-block disabled" onclick="location.href='@Url.Action("Details", "Relationships",new { id = relation.ID })'">
+                    <span>@relation.Name</span>
+                </button>
+            }
+        }
+    }
+}

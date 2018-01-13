@@ -1,0 +1,98 @@
+﻿@model Vision_V1.Models.Plotline
+
+@{
+    ViewBag.Title = "IndexDP";
+    Layout = "~/Views/Shared/Templates/IndexTemplate.cshtml";
+}
+
+@section Title{Dependent plotlines}
+
+@section Links{
+    <button type="button" class="btn btn-primary right" onclick="location.href='@Url.Action("PickForDP","Plotlines")'">
+        <img src="~/Content/Icons/Add.png" alt="Pick plotlines" class="small_image" />
+    </button>
+}
+
+@section Table{
+    @if ((Model.DependentPlotlinesF == null || !Model.DependentPlotlinesF.Any())&& (Model.DependentPlotlinesA == null || !Model.DependentPlotlinesA.Any()))
+    {
+        <div class="row">
+            <div class="col-lg-11 col-lg-offset-1 padding-5 gray_text">No Plotlines yet.</div>
+        </div>
+    }
+    else
+    {
+        <table class="table">
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.Name)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Characters)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Summary)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.LastModified)
+                </th>
+                <th></th>
+            </tr>
+            @{
+                var plots = Model.DependentPlotlinesF.ToList();
+                plots.AddRange(Model.DependentPlotlinesA);
+                var plotList = plots.OrderBy(p=> p.Name);
+            }
+            @foreach (var plot in plotList)
+            {
+                var color = Vision_V1.Models.Types.ColorSchema.PrimaryDark;
+                if (Model == plot)
+                {
+                    color = Vision_V1.Models.Types.ColorSchema.Gray.Light;
+                }
+                <tr style="background-color:@color">
+                    <td>
+                        @Html.DisplayFor(modelItem => plot.Name)
+                    </td>
+                    <td>
+                        @if (plot.Characters != null && plot.Characters.Any())
+                        {
+                            foreach (var character in plot.Characters)
+                            {
+                                <button type="button" class="btn btn-link text-smaller" onclick="location.href='@Url.Action("Details","Characters", new { id = character.ID })'">
+                                    @Html.DisplayFor(modelItem => character.Name)
+                                </button>
+                            }
+                        }
+                        else
+                        {
+                            <span>None</span>
+                        }
+                    </td>
+                    <td>
+                        @plot.SummaryShort()
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => plot.LastModified)
+                    </td>
+                    <td>
+                        <span class="right">
+                            <button type="button" class="btn btn-default" onclick="location.href='@Url.Action("Details","Plotlines", new { id = plot.ID })'">
+                                <img src="~/Content/Icons/Details.png" alt="Details" class="small_image" />
+                            </button>
+                            <button type="button" class="btn btn-default" onclick="location.href='@Url.Action("Edit","Plotlines", new { id = plot.ID })'">
+                                <img src="~/Content/Icons/Edit.png" alt="Edit" class="small_image" />
+                            </button>
+                            <button type="button" class="btn btn-default" onclick="location.href='@Url.Action("RemoveFromPlotline","Plotlines", new { id = plot.ID })'">
+                                <img src="~/Content/Icons/Remove.png" alt="Remove" class="small_image" />
+                            </button>
+                            <button type="button" class="btn btn-default" onclick="location.href='@Url.Action("Delete","Plotlines", new { id = plot.ID })'">
+                                <img src="~/Content/Icons/Trash.png" alt="Delete" class="small_image" />
+                            </button>
+                        </span>
+                    </td>
+                </tr>
+            }
+        </table>
+    }
+}

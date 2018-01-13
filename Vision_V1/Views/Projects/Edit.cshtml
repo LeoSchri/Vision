@@ -1,0 +1,21 @@
+﻿@model Vision_V1.Models.Project
+
+@{
+    ViewBag.Title = "Edit";
+    ViewBag.Controller = "Projects";
+    Layout = "~/Views/Shared/Templates/EditTemplate.cshtml";
+}
+
+@section Title{@Model.Name}
+
+@section Attribute1Name{@Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "control-label col-lg-2" })}
+@section Attribute1Edit{
+    @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control" } })
+    @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
+}
+
+@section CancelButton{
+    <button type="button" class="btn btn-danger shadow" onclick="location.href='@Url.Action("Home","Projects")'">
+        <img src="~/Content/Icons/CancelWhite.png" alt="Cancel" class="small_image" />
+    </button>
+}

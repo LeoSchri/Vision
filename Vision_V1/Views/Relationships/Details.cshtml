@@ -1,0 +1,34 @@
+﻿@model Vision_V1.Models.Relationship
+
+@{
+    ViewBag.Title = "Details";
+    ViewBag.Controller = "Relationships";
+    Layout = "~/Views/Shared/Templates/DetailsTemplate.cshtml";
+}
+
+@section Title{@Model.Name}
+
+
+@section Links{
+    @{
+        var page = Vision_V1.ViewModels.PageManager.Pages.Find(p => p.Name == ViewBag.Title && p.Controller == ViewBag.Controller);
+        var index = Vision_V1.ViewModels.PageManager.Pages.IndexOf(page);
+        var isLast = false;
+        if (index == Vision_V1.ViewModels.PageManager.Pages.Count - 1)
+        {
+            isLast = true;
+        }
+    }
+    @if (Vision_V1.ViewModels.PageManager.Pages.Count > 1 && isLast)
+    {
+        <button type="button" class="btn btn-primary" onclick="location.href='@Url.Action("RemovePageWID","Page", new { id = index })'">
+            <img src="~/Content/Icons/Cancel.png" alt="Delete" class="small_image" />
+        </button>
+    }
+}
+
+@section ListOf{
+    <div class="top-margin-10">
+        @Html.Partial("~/Views/RelationshipPhases/Index.cshtml", Model.Phases.ToList())
+    </div>
+}

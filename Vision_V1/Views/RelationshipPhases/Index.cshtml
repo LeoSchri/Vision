@@ -1,0 +1,119 @@
+﻿@model List<Vision_V1.Models.RelationshipPhase>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/Templates/IndexTemplate.cshtml";
+}
+
+@section Title{Relationship phases}
+
+@section Links{
+    <span class="right">
+        @if (Vision_V1.ViewModels.PageManager.CurrentScene != null)
+        {
+            <button type="button" class="btn btn-primary" onclick="location.href='@Url.Action("PickForRC","RelationshipPhases")'">
+                <img src="~/Content/Icons/Add.png" alt="Pick relationship phases" class="small_image" />
+            </button>
+        }
+        else
+        {
+            <button type="button" class="btn btn-primary" onclick="location.href='@Url.Action("Create","RelationshipPhases")'">
+                <img src="~/Content/Icons/New.png" alt="Create relationship phase" class="small_image" />
+            </button>
+        }
+        @if (Vision_V1.ViewModels.PageManager.CurrentRelationshipPhase != null)
+        {
+            <button type="button" class="btn btn-primary" onclick="location.href='@Url.Action("IndexToList","RelationshipPhases")'">
+                <img src="~/Content/Icons/Minimize.png" alt="Back to list" class="small_image" />
+            </button>
+        }
+    </span>
+}
+
+@section Table{
+    @if (Model == null || !Model.Any())
+    {
+        <div class="row">
+            <div class="col-lg-11 col-lg-offset-1 padding-5">No Relationship phases yet.</div>
+        </div>
+    }
+    else
+    {
+        <table class="table">
+            <tr>
+                @if (Vision_V1.ViewModels.PageManager.CurrentScene != null)
+                {
+                    <th>
+                        Character
+                    </th>
+                    <th>
+                        CPCharacter
+                    </th>
+                }
+                <th>
+                    @Html.DisplayNameFor(model => model.FirstOrDefault().Name)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.FirstOrDefault().Relation)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.FirstOrDefault().Closeness)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.FirstOrDefault().LastModified)
+                </th>
+                <th></th>
+            </tr>
+
+            @{
+                var relationshipPhaseList = Model.OrderBy(model => model.ID).ToList();
+            }
+            @foreach (var relationPhase in relationshipPhaseList)
+            {
+                var color = Vision_V1.Models.Types.ColorSchema.PrimaryDark;
+                <tr style="background-color:@color">
+                    @if (Vision_V1.ViewModels.PageManager.CurrentScene != null)
+                    {
+                        <td>
+                            @Html.DisplayFor(model => model.FirstOrDefault().Relationship.Character.Name)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(model => model.FirstOrDefault().Relationship.CounterpartCharacter.Name)
+                        </td>
+                    }
+                    <td>
+                        @Html.DisplayFor(modelItem => relationPhase.Name)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => relationPhase.Relation)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => relationPhase.Closeness)
+                    </td>
+                    <td class="text-smallest">
+                        @Html.DisplayFor(modelItem => relationPhase.LastModified)
+                    </td>
+                    <td>
+                        <span class="right">
+                            <button type="button" class="btn btn-default" onclick="location.href='@Url.Action("Details","RelationshipPhases", new { id = relationPhase.ID })'">
+                                <img src="~/Content/Icons/Details.png" alt="Details" class="small_image" />
+                            </button>
+                            <button type="button" class="btn btn-default" onclick="location.href='@Url.Action("Edit","RelationshipPhases", new { id = relationPhase.ID })'">
+                                <img src="~/Content/Icons/Edit.png" alt="Edit" class="small_image" />
+                            </button>
+                            @if (Vision_V1.ViewModels.PageManager.CurrentScene != null)
+                            {
+                                <button type="button" class="btn btn-default" onclick="location.href='@Url.Action("RemoveRelationshipPhaseFromScene","RelationshipPhases", new { id = relationPhase.ID })'">
+                                    <img src="~/Content/Icons/Remove.png" alt="Delete" class="small_image" />
+                                </button>
+                            }
+                            <button type="button" class="btn btn-default" onclick="location.href='@Url.Action("Delete","RelationshipPhases", new { id = relationPhase.ID })'">
+                                <img src="~/Content/Icons/Trash.png" alt="Delete" class="small_image" />
+                            </button>
+                        </span>
+                    </td>
+                </tr>
+            }
+        </table>
+                }
+}

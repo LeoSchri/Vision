@@ -1,0 +1,44 @@
+﻿@model List<Vision_V1.Models.Arc>
+
+@{
+    ViewBag.Title = "List";
+    Layout = "~/Views/Shared/Templates/ListTemplate.cshtml";
+}
+
+@section Title{Arcs}
+
+@section Links{
+    <button type="button" class="btn btn-primary right" onclick="location.href='@Url.Action("Details","Books", new { id = Vision_V1.ViewModels.PageManager.CurrentBook.ID })'">
+        <img src="~/Content/Icons/Maximize.png" alt="Back to list" class="small_image" />
+    </button>
+}
+
+@section List{
+        @{
+            var arcList = Model.OrderBy(model => model.ID).ToList();
+        }
+        @if (arcList == null || !arcList.Any())
+        {
+            <div class="row">
+                <div class="col-lg-11 col-lg-offset-1 padding-5 gray_text">No entries</div>
+            </div>
+        }
+        else
+        {
+            foreach (var arc in arcList)
+            {
+                if (Vision_V1.ViewModels.PageManager.CurrentArc != null && Vision_V1.ViewModels.PageManager.CurrentArc.ID == arc.ID)
+                {
+                    <button type="button" class="btn btn-info btn-block" onclick="location.href='@Url.Action("Details", "Arcs",new { id = arc.ID })'">
+                        <span>@arc.Name</span>
+                    </button>
+                }
+                else
+                {
+                    <button type="button" class="btn btn-standard btn-block" onclick="location.href='@Url.Action("Details", "Arcs",new { id = arc.ID })'">
+                        <span>@arc.Name</span>
+                    </button>
+                }
+            }
+        }
+}

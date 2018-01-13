@@ -1,0 +1,18 @@
+﻿@model Vision_V1.Models.Project
+
+@{
+    ViewBag.Title = "Delete";
+    ViewBag.Controller = "Projects";
+    Layout = "~/Views/Shared/Templates/DeleteTemplate.cshtml";
+}
+
+@section Typ{Project}
+
+@section Attribute1Name{@Html.DisplayNameFor(model => model.Name)}
+@section Attribute1Prop{@Html.DisplayFor(model => model.Name)}
+
+@section CancelButton{
+    <button type="button" class="btn btn-danger shadow" onclick="location.href='@Url.Action("Home","Projects")'">
+        <img src="~/Content/Icons/CancelWhite.png" alt="Cancel" class="small_image" />
+    </button>
+}

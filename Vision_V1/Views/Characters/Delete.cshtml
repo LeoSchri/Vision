@@ -1,0 +1,53 @@
+﻿@model Vision_V1.Models.Character
+
+@{
+    ViewBag.Title = "Delete";
+    ViewBag.Controller = "Characters";
+    Layout = "~/Views/Shared/Templates/DeleteTemplate.cshtml";
+}
+
+@section Typ{Character}
+
+@section Attribute1Name{@Html.DisplayNameFor(model => model.Name)}
+@section Attribute1Prop{@Html.DisplayFor(model => model.Name)}
+
+@section Attribute2Name{@Html.DisplayNameFor(model => model.History)}
+@section Attribute2Prop{@Html.DisplayFor(model => model.History)}
+
+@section Attribute3Name{@Html.DisplayNameFor(model => model.LastModified)}
+@section Attribute3Prop{@Html.DisplayFor(model => model.LastModified)}
+
+@section groupAttributes{
+    @{
+        var attributes = Vision_V1.ViewModels.PageManager.Attributes;
+    }
+    @for (int i = 0; i < attributes.Count; i++)
+    {
+        string value = " ";
+        if (Model.CharacterAttributes != null && Model.CharacterAttributes.Any())
+        {
+            value = Model.CharacterAttributes.ToList().Find(ca => ca.AttributeId == attributes[i].ID).Value;
+            if (value == null)
+            {
+                value = " ";
+            }
+        }
+        <div class="row">
+            <div class="form-group">
+                <div class="col-lg-offset-1 col-lg-2 label2">
+                    @Html.DisplayName(attributes[i].Name)
+                </div>
+                <div class="col-lg-9">
+                    @value
+                    @*@Html.Display(value)*@
+                </div>
+            </div>
+        </div>
+    }
+}
+
+@section CancelButton{
+    <button type="button" class="btn btn-danger shadow" onclick="location.href='@Url.Action((string)Session["destinedMethod"], (string)Session["destinedController"])'">
+        <img src="~/Content/Icons/CancelWhite.png" alt="Cancel" class="small_image" />
+    </button>
+}

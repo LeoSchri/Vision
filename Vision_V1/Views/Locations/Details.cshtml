@@ -1,0 +1,62 @@
+﻿@model Vision_V1.Models.Location
+
+@{
+    ViewBag.Title = "Details";
+    ViewBag.Controller = "Locations";
+    Layout = "~/Views/Shared/Templates/DetailsTemplate.cshtml";
+}
+
+@section Title{@Model.Name}
+
+
+@section Links{
+    <button type="button" class="btn btn-primary" onclick="location.href='@Url.Action("Edit","Locations", new { id = Model.ID })'">
+        <img src="~/Content/Icons/Edit.png" alt="Edit" class="small_image" />
+    </button>
+    <button type="button" class="btn btn-primary" onclick="location.href='@Url.Action("Delete","Locations", new { id = Model.ID })'">
+        <img src="~/Content/Icons/Trash.png" alt="Delete" class="small_image" />
+    </button>
+    @{
+        var page = Vision_V1.ViewModels.PageManager.Pages.Find(p => p.Name == ViewBag.Title && p.Controller == ViewBag.Controller);
+        var index = Vision_V1.ViewModels.PageManager.Pages.IndexOf(page);
+        var isLast = false;
+        if (index == Vision_V1.ViewModels.PageManager.Pages.Count - 1)
+        {
+            isLast = true;
+        }
+    }
+    @if (Vision_V1.ViewModels.PageManager.Pages.Count > 1 && isLast)
+    {
+        <button type="button" class="btn btn-default disabled" onclick="location.href='@Url.Action("ChangeStructure","Page")'">
+            <img src="~/Content/Icons/SeperatorLight.png" alt="Seperator" class="small_image" />
+        </button>
+        <button type="button" class="btn btn-primary" onclick="location.href='@Url.Action("RemovePageWID","Page", new { id = index })'">
+            <img src="~/Content/Icons/Cancel.png" alt="Delete" class="small_image" />
+        </button>
+    }
+}
+
+@section Attribute1Name{@Html.DisplayNameFor(model => model.Name)}
+@section Attribute1Prop{@Html.DisplayFor(model => model.Name)}
+
+@section Attribute2Name{@Html.DisplayNameFor(model => model.Type)}
+@section Attribute2Prop{@Html.DisplayFor(model => model.Type)}
+
+@section Attribute3Name{@Html.DisplayNameFor(model => model.Description)}
+@section Attribute3Prop{@Html.DisplayFor(model => model.Description)}
+
+@if (Model.ParentId != null)
+{
+    @section Attribute4Name{Located in}
+    @section Attribute4Prop{<span>@Html.DisplayFor(model => model.Orientation) of @Html.DisplayFor(model => model.Parent.Name)</span>}
+}
+
+@section Attribute5Name{@Html.DisplayNameFor(model => model.Climate)}
+@section Attribute5Prop{@Html.DisplayFor(model => model.Climate)}
+
+@section Attribute6Name{@Html.DisplayNameFor(model => model.LastModified)}
+@section Attribute6Prop{@Html.DisplayFor(model => model.LastModified)}
+
+@section ListOf{@Html.Partial("~/Views/Locations/IndexSL.cshtml", Model.SubLocations)}
+
+

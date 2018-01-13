@@ -1,0 +1,126 @@
+﻿@model List<Vision_V1.Models.Plotline>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/Templates/IndexTemplate.cshtml";
+}
+
+@section Title{Plotlines}
+
+@section Links{
+    <span class="right">
+        @if (Vision_V1.ViewModels.PageManager.CurrentCharacter != null)
+        {
+            <button type="button" class="btn btn-primary" onclick="location.href='@Url.Action("CreateChild","Plotlines")'">
+                <img src="~/Content/Icons/New.png" alt="Create plotline" class="small_image" />
+            </button>
+            <button type="button" class="btn btn-primary" onclick="location.href='@Url.Action("PickForC","Plotlines")'">
+                <img src="~/Content/Icons/Add.png" alt="Pick plotlines" class="small_image" />
+            </button>
+            if (Vision_V1.ViewModels.PageManager.CurrentPlotline != null)
+            {
+                <button type="button" class="btn btn-primary" onclick="location.href='@Url.Action("IndexToList","Plotlines")'">
+                    <img src="~/Content/Icons/Minimize.png" alt="Back to list" class="small_image" />
+                </button>
+            }
+        }
+        else
+        {
+            <button type="button" class="btn btn-primary" onclick="location.href='@Url.Action("Create","Plotlines")'">
+                <img src="~/Content/Icons/New.png" alt="Create plotline" class="small_image" />
+            </button>
+            if (Vision_V1.ViewModels.PageManager.CurrentPlotline != null)
+            {
+                <button type="button" class="btn btn-primary" onclick="location.href='@Url.Action("List","Plotlines")'">
+                    <img src="~/Content/Icons/Minimize.png" alt="Back to list" class="small_image" />
+                </button>
+            }
+        }
+    </span>
+}
+
+@section Table{
+    @if (Model == null || !Model.Any())
+    {
+        <div class="row">
+            <div class="col-lg-11 col-lg-offset-1 padding-5 gray_text">No Plotlines yet.</div>
+        </div>
+    }
+    else
+    {
+        <table class="table">
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.FirstOrDefault().Name)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.FirstOrDefault().Characters)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.FirstOrDefault().Summary)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.FirstOrDefault().LastModified)
+                </th>
+                <th></th>
+            </tr>
+            @{
+                var plotList = Model.OrderBy(model => model.Name).ToList();
+            }
+            @foreach (var plot in plotList)
+            {
+                var color = Vision_V1.Models.Types.ColorSchema.PrimaryDark;
+                if (Vision_V1.ViewModels.PageManager.CurrentPlotline == plot)
+                {
+                    color = Vision_V1.Models.Types.ColorSchema.Gray.Light;
+                }
+                <tr style="background-color:@color">
+                    <td>
+                        @Html.DisplayFor(modelItem => plot.Name)
+                    </td>
+                    <td>
+                        @if (plot.Characters != null && plot.Characters.Any())
+                        {
+                            foreach (var character in plot.Characters)
+                            {
+                                <button type="button" class="btn btn-link text-smaller" onclick="location.href='@Url.Action("Details","Characters", new { id = character.ID })'">
+                                    @Html.DisplayFor(modelItem => character.Name)
+                                </button>
+                            }
+                        }
+                        else
+                        {
+                            <span>None</span>
+                        }
+                    </td>
+                    <td>
+                        @plot.SummaryShort()
+                    </td>
+                    <td class="text-smaller">
+                        @Html.DisplayFor(modelItem => plot.LastModified)
+                    </td>
+                    <td>
+                        <span class="right">
+                            <button type="button" class="btn btn-default" onclick="location.href='@Url.Action("Details","Plotlines", new { id = plot.ID })'">
+                                <img src="~/Content/Icons/Details.png" alt="Details" class="small_image" />
+                            </button>
+                            <button type="button" class="btn btn-default" onclick="location.href='@Url.Action("Edit","Plotlines", new { id = plot.ID })'">
+                                <img src="~/Content/Icons/Edit.png" alt="Edit" class="small_image" />
+                            </button>
+                            @if (Vision_V1.ViewModels.PageManager.CurrentCharacter != null)
+                            {
+                                <button type="button" class="btn btn-default" onclick="location.href='@Url.Action("RemoveFromCharacter","Plotlines", new { id = plot.ID })'">
+                                    <img src="~/Content/Icons/Remove.png" alt=" Remove" class="small_image" />
+                                </button>
+                            }
+                            <button type="button" class="btn btn-default" onclick="location.href='@Url.Action("Delete","Plotlines", new { id = plot.ID })'">
+                                <img src="~/Content/Icons/Trash.png" alt="Delete" class="small_image" />
+                            </button>
+                        </span>
+                    </td>
+                </tr>
+            }
+
+        </table>
+                }
+}

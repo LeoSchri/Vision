@@ -1,0 +1,44 @@
+﻿@model List<Vision_V1.Models.CharacterEvolvement>
+
+@{
+    ViewBag.Title = "List";
+    Layout = "~/Views/Shared/Templates/ListTemplate.cshtml";
+}
+
+@section Title{<span class="text-smaller">Character devolopement</span>}
+
+@section Links{
+    <button type="button" class="btn btn-primary right" onclick="location.href='@Url.Action("Details","Characters")'">
+        <img src="~/Content/Icons/ArrowLeft.png" alt="Back to list" class="small_image" />
+    </button>
+}
+
+@section List{
+    @{
+        var characterEvList = Model.OrderBy(model => model.ID).ToList();
+    }
+    @if (characterEvList == null || !characterEvList.Any())
+    {
+        <div class="row">
+            <div class="col-lg-11 col-lg-offset-1 padding-5 gray_text">No entries</div>
+        </div>
+    }
+    else
+    {
+        foreach (var characterEv in characterEvList)
+        {
+            if (Vision_V1.ViewModels.PageManager.CurrentCharacterEvolvement != null && Vision_V1.ViewModels.PageManager.CurrentCharacterEvolvement.ID == characterEv.ID)
+            {
+                <button type="button" class="btn btn-info btn-block" onclick="location.href='@Url.Action("Details", "CharacterEvolvements",new { id = characterEv.ID })'">
+                    <span>@characterEv.Name</span>
+                </button>
+            }
+            else
+            {
+                <button type="button" class="btn btn-standard btn-block" onclick="location.href='@Url.Action("Details", "CharacterEvolvements",new { id = characterEv.ID })'">
+                    <span>@characterEv.Name</span>
+                </button>
+            }
+        }
+    }
+}

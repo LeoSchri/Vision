@@ -1,0 +1,103 @@
+﻿@model List<Vision_V1.Models.RelationshipPhase>
+
+@{
+    ViewBag.Title = "PickMany";
+    Layout = "~/Views/Shared/Templates/PickTemplate.cshtml";
+}
+
+@section Title{Relationship phases}
+
+@section Table{
+    @if (Model == null || !Model.Any())
+    {
+        <div class="row">
+            <div class="col-lg-11 col-lg-offset-1 padding-5">No Relationship phases available.</div>
+        </div>
+        using (Html.BeginForm())
+        {
+            @Html.AntiForgeryToken()
+
+            <div class="form-group">
+                <div class="col-lg-12">
+                    <button type="button" class="btn btn-danger shadow right" onclick="location.href='@Url.Action((string)Session["destinedMethod"],(string)Session["destinedController"])'">
+                        <img src="~/Content/Icons/CancelWhite.png" alt="Cancel" class="small_image" />
+                    </button>
+                </div>
+            </div>
+        }
+    }
+    else
+    {
+        var color = Vision_V1.Models.Types.ColorSchema.PrimaryMedium;
+        <table class="table">
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.FirstOrDefault().Name)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.FirstOrDefault().Relation)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.FirstOrDefault().Closeness)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.FirstOrDefault().ThoughtsOnCounterpart)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.FirstOrDefault().LastModified)
+                </th>
+                <th></th>
+            </tr>
+
+            @{
+                var characterList = Model.OrderBy(model => model.Name).ToList();
+            }
+            @for (int i = 0; i < characterList.Count; i++)
+            {
+                <tr style="background-color:@color">
+                    <td>
+                        @Html.DisplayFor(modelItem => modelItem[i].Name)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => modelItem[i].Relation)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => modelItem[i].Closeness)
+                    </td>
+                    <td>
+                        @Model[i].ThoughtsOnCounterpartShort()
+                    </td>
+                    <td class="text-smallest">
+                        @Html.DisplayFor(modelItem => modelItem[i].LastModified)
+                    </td>
+                    <td>
+                        @using (Html.BeginForm())
+                        {
+                            @Html.AntiForgeryToken()
+
+                            <div class="form-group">
+                                <div class="col-lg-1 right">
+                                    <button type="button" class="btn btn-success btn-xs right" onclick="location.href='@Url.Action((string)Session["method"],"RelationshipPhases", new { id= Model[i].ID })'">
+                                        <img src="~/Content/Icons/Tick.png" alt="Choose this" class="smaller_image" />
+                                    </button>
+                                </div>
+                            </div>
+                        }
+                    </td>
+                </tr>
+            }
+        </table>
+                using (Html.BeginForm())
+                {
+                    @Html.AntiForgeryToken()
+
+                    <div class="form-group">
+                        <div class="col-lg-12">
+                            <button type="button" class="btn btn-success right" onclick="location.href='@Url.Action((string)Session["destinedMethod"],(string)Session["destinedController"])'">
+                                <img src="~/Content/Icons/Tick.png" alt="Confirm" class="small_image" />
+                            </button>
+                        </div>
+                    </div>
+                    }
+                }
+}

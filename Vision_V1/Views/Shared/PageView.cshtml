@@ -1,0 +1,53 @@
+﻿@{
+    ViewBag.Title = "PageView";
+    Layout = "~/Views/Shared/PageLayout.cshtml";
+}
+
+@{ 
+    var pages = Vision_V1.ViewModels.PageManager.Pages;
+}
+
+@if (pages != null && pages.Any())
+{
+    if (pages.Count == 1)
+    {
+        Vision_V1.ViewModels.PageManager.StructureId = 1;
+        @section Section1{@Html.Partial($"~/Views/{pages[0].Controller}/{pages[0].Name}.cshtml",pages[0].Model, new ViewDataDictionary(pages[0].Model))}
+    }
+    else if (pages.Count == 2)
+    {
+        @section Section1{@Html.Partial($"~/Views/{pages[0].Controller}/{pages[0].Name}.cshtml", pages[0].Model, new ViewDataDictionary(pages[0].Model))}
+        @section Section2{@Html.Partial($"~/Views/{pages[1].Controller}/{pages[1].Name}.cshtml", pages[1].Model, new ViewDataDictionary(pages[1].Model))}
+    }
+    else if (pages.Count == 3)
+    {
+        @section Section1{@Html.Partial($"~/Views/{pages[0].Controller}/{pages[0].Name}.cshtml", pages[0].Model, new ViewDataDictionary(pages[0].Model))}
+        @section Section2{@Html.Partial($"~/Views/{pages[1].Controller}/{pages[1].Name}.cshtml", pages[1].Model, new ViewDataDictionary(pages[1].Model))}
+        @section Section3{@Html.Partial($"~/Views/{pages[2].Controller}/{pages[2].Name}.cshtml", pages[2].Model, new ViewDataDictionary(pages[2].Model))}
+    }
+
+    else if (pages.Count == 4)
+    {
+        @section Section1{@Html.Partial($"~/Views/{pages[0].Controller}/{pages[0].Name}.cshtml", pages[0].Model, new ViewDataDictionary(pages[0].Model))}
+        @section Section2{@Html.Partial($"~/Views/{pages[1].Controller}/{pages[1].Name}.cshtml", pages[1].Model, new ViewDataDictionary(pages[1].Model))}
+        @section Section3{@Html.Partial($"~/Views/{pages[2].Controller}/{pages[2].Name}.cshtml", pages[2].Model, new ViewDataDictionary(pages[2].Model))}
+        @section Section4{@Html.Partial($"~/Views/{pages[3].Controller}/{pages[3].Name}.cshtml", pages[3].Model, new ViewDataDictionary(pages[3].Model))}
+    }
+    else if (pages.Count == 5)
+    {
+        @section Section1{@Html.Partial($"~/Views/{pages[0].Controller}/{pages[0].Name}.cshtml", pages[0].Model, new ViewDataDictionary(pages[0].Model))}
+        @section Section2{@Html.Partial($"~/Views/{pages[1].Controller}/{pages[1].Name}.cshtml", pages[1].Model, new ViewDataDictionary(pages[1].Model))}
+        @section Section3{@Html.Partial($"~/Views/{pages[2].Controller}/{pages[2].Name}.cshtml", pages[2].Model, new ViewDataDictionary(pages[2].Model))}
+        @section Section4{@Html.Partial($"~/Views/{pages[3].Controller}/{pages[3].Name}.cshtml", pages[3].Model, new ViewDataDictionary(pages[3].Model))}
+        @section Section5{@Html.Partial($"~/Views/{pages[4].Controller}/{pages[4].Name}.cshtml", pages[4].Model, new ViewDataDictionary(pages[4].Model))}
+    }
+    else if (pages.Count == 6)
+    {
+        @section Section1{@Html.Partial($"~/Views/{pages[0].Controller}/{pages[0].Name}.cshtml", pages[0].Model, new ViewDataDictionary(pages[0].Model))}
+        @section Section2{@Html.Partial($"~/Views/{pages[1].Controller}/{pages[1].Name}.cshtml", pages[1].Model, new ViewDataDictionary(pages[1].Model))}
+        @section Section3{@Html.Partial($"~/Views/{pages[2].Controller}/{pages[2].Name}.cshtml", pages[2].Model, new ViewDataDictionary(pages[2].Model))}
+        @section Section4{@Html.Partial($"~/Views/{pages[3].Controller}/{pages[3].Name}.cshtml", pages[3].Model, new ViewDataDictionary(pages[3].Model))}
+        @section Section5{@Html.Partial($"~/Views/{pages[4].Controller}/{pages[4].Name}.cshtml", pages[4].Model, new ViewDataDictionary(pages[4].Model))}
+        @section Section6{@Html.Partial($"~/Views/{pages[5].Controller}/{pages[5].Name}.cshtml", pages[5].Model, new ViewDataDictionary(pages[5].Model))}
+    }
+}

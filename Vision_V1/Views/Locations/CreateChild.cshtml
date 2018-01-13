@@ -1,0 +1,41 @@
+﻿@model Vision_V1.Models.Location
+
+@{
+    ViewBag.Title = "CreateChild";
+    ViewBag.Name = "CreateChild";
+    ViewBag.Controller = "Locations";
+    Layout = "~/Views/Shared/Templates/CreateTemplate.cshtml";
+}
+
+@section Typ{Location}
+
+@section HiddenFields{
+    @Html.HiddenFor(model => model.ProjectId)
+}
+
+@section Attribute1Name{@Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "control-label col-lg-3" })}
+@section Attribute1Edit{
+    @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control" } })
+    @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
+}
+
+@section Attribute2Name{@Html.LabelFor(model => model.Type, htmlAttributes: new { @class = "control-label col-lg-3" })}
+@section Attribute2Edit{@Html.EnumDropDownListFor(model => model.Type, new { htmlAttributes = new { @class = "form-control" } })}
+
+@section Attribute3Name{@Html.LabelFor(model => model.Description, htmlAttributes: new { @class = "control-label col-lg-3" })}
+@section Attribute3Edit{
+    @Html.EditorFor(model => model.Description, new { htmlAttributes = new { @class = "form-control" } })
+    @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
+}
+
+@section Attribute4Name{@Html.LabelFor(model => model.Orientation, htmlAttributes: new { @class = "control-label col-lg-3" })}
+@section Attribute4Edit{@Html.EnumDropDownListFor(model => model.Orientation, new { htmlAttributes = new { @class = "form-control" } })}
+
+@section Attribute5Name{@Html.LabelFor(model => model.Climate, htmlAttributes: new { @class = "control-label col-lg-3" })}
+@section Attribute5Edit{@Html.EnumDropDownListFor(model => model.Climate, new { htmlAttributes = new { @class = "form-control" } })}
+
+@section CancelButton{
+    <button type="button" class="btn btn-danger shadow" onclick="location.href='@Url.Action("Index", "Locations")'">
+        <img src="~/Content/Icons/CancelWhite.png" alt="Cancel" class="small_image" />
+    </button>
+}

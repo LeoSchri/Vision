@@ -1,0 +1,131 @@
+﻿@model Vision_V1.Models.Scene
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/Templates/IndexTemplate.cshtml";
+}
+
+@section Title{Dependent scenes}
+
+@section Links{
+    <button type="button" class="btn btn-primary right" onclick="location.href='@Url.Action("PickForSceneDS", "Scenes", new { id = Model.ID })'">
+        <img src="~/Content/Icons/Add.png" alt="Pick scenes" class="small_image" />
+    </button>
+}
+
+@section Table{
+    @if ((Model.DependentScenesF == null || !Model.DependentScenesF.Any())&& (Model.DependentScenesA == null || !Model.DependentScenesA.Any()))
+    {
+        <div class="row">
+            <div class="col-lg-11 col-lg-offset-1 padding-5">No Scenes yet.</div>
+        </div>
+    }
+    else
+    {
+        <table class="table">
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.Name)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Plotlines)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Mood)
+                </th>
+                <th>
+                    POV character
+                </th>
+                <th>
+                    Location
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Weather)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.LastModified)
+                </th>
+                <th></th>
+            </tr>
+
+            @{
+                var scenes = Model.DependentScenesF.ToList();
+                scenes.AddRange(Model.DependentScenesA);
+                var sceneList = scenes.OrderBy(model => model.OrderID == null).ThenBy(model => model.OrderID).ToList();
+            }
+            @foreach (var scene in sceneList)
+            {
+                var color = Vision_V1.Models.Types.ColorSchema.PrimaryDark;
+                if (Model == scene)
+                {
+                    color = Vision_V1.Models.Types.ColorSchema.Gray.Light;
+                }
+                <tr style="background-color:@color">
+                    <td>
+                        @Html.DisplayFor(modelItem => scene.Name)
+                    </td>
+                    <td>
+                        @if (scene.Plotlines != null && scene.Plotlines.Any())
+                        {
+                            foreach (var plotline in scene.Plotlines)
+                            {
+                                <button type="button" class="btn btn-link" onclick="location.href='@Url.Action("Details","Plotlines", new { id = plotline.ID })'">
+                                    @plotline.Name
+                                </button>
+                            }
+                        }
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => scene.Mood)
+                    </td>
+                    <td>
+                        @if (scene.POVCharacterId == null)
+                        {
+                            <span>None</span>
+                        }
+                        else
+                        {
+                            <button type="button" class="btn btn-link" onclick="location.href='@Url.Action("Details","Characters", new { id = scene.POVCharacterId })'">
+                                @Html.DisplayFor(modelItem => scene.POVCharacter.Name)
+                            </button>
+                        }
+                    </td>
+                    <td>
+                        @if (scene.LocationId == null)
+                        {
+                            <span>None</span>
+                        }
+                        else
+                        {
+                            <button type="button" class="btn btn-link" onclick="location.href='@Url.Action("Details","Locations", new { id = scene.LocationId })'">
+                                @Html.DisplayFor(modelItem => scene.Location.Name)
+                            </button>
+                        }
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => scene.Weather)
+                    </td>
+                    <td class="text-smallest">
+                        @Html.DisplayFor(modelItem => scene.LastModified)
+                    </td>
+                    <td>
+                        <span class="right">
+                            <button type="button" class="btn btn-default" onclick="location.href='@Url.Action("Details","Scenes", new { id = scene.ID })'">
+                                <img src="~/Content/Icons/Details.png" alt="Details" class="small_image" />
+                            </button>
+                            <button type="button" class="btn btn-default" onclick="location.href='@Url.Action("Edit","Scenes", new { id = scene.ID })'">
+                                <img src="~/Content/Icons/Edit.png" alt="Edit" class="small_image" />
+                            </button>
+                            <button type="button" class="btn btn-default" onclick="location.href='@Url.Action("RemoveFromScene","Scenes", new { id = scene.ID })'">
+                                <img src="~/Content/Icons/Remove.png" alt="Delete" class="small_image" />
+                            </button>
+                            <button type="button" class="btn btn-default" onclick="location.href='@Url.Action("Delete","Scenes", new { id = scene.ID })'">
+                                <img src="~/Content/Icons/Trash.png" alt="Delete" class="small_image" />
+                            </button>
+                        </span>
+                    </td>
+                </tr>
+            }
+        </table>
+                }
+}

@@ -1,0 +1,42 @@
+﻿@model Vision_V1.Models.Information
+
+@{
+    ViewBag.Title = "Create";
+    ViewBag.Name = "CreateChild";
+    ViewBag.Controller = "Information";
+}
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    <div class="form-horizontal padding-bottom-20">
+        <div class="container title2">
+            <div class="row padding-5">
+                <div class="col-lg-1 padding-top-5">@Html.LabelFor(model => model.Name, new { htmlAttributes = new { @class = "control-label" } })</div>
+                <div class="col-lg-4 padding-top-5">@Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control" } })</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container padding-bottom-10">
+        <div class="row">
+            <div class="col-lg-10">
+                <div class="col-lg-2 padding-top-5">@Html.LabelFor(model => model.Content, new { htmlAttributes = new { @class = "control-label" } })</div>
+                <div class="col-lg-10 padding-top-5">@Html.EditorFor(model => model.Content, new { htmlAttributes = new { @class = "form-control" } })</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container top-margin-10 padding-bottom-10">
+        <div class="col-lg-offset-10 col-lg-1">
+            <button type="submit" class="btn btn-success right shadow">
+                <img src="~/Content/Icons/Tick.png" alt="Submit" class="small_image" />
+            </button>
+        </div>
+        <div class="col-lg-1">
+            <button type="button" class="btn btn-danger shadow" onclick="location.href='@Url.Action("Details", "Information")'">
+                <img src="~/Content/Icons/CancelWhite.png" alt="Cancel" class="small_image" />
+            </button>
+        </div>
+    </div>
+}

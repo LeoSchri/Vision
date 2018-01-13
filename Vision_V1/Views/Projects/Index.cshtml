@@ -1,0 +1,73 @@
+﻿@model  List<Vision_V1.Models.Project>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/Templates/IndexTemplate.cshtml";
+}
+
+@section Title{Projects}
+
+@section Links{
+    <button type="button" class="btn btn-primary right" onclick="location.href='@Url.Action("Create","Projects")'">
+        <img src="~/Content/Icons/New.png" alt="Create project" class="small_image" />
+    </button>
+}
+
+@section Table{
+    @if (Model == null || !Model.Any())
+    {
+        <div class="row">
+            <div class="col-lg-11 col-lg-offset-1 padding-5 gray_text">No Projects created yet.</div>
+        </div>
+    }
+    else
+    {
+        <table class="table">
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.FirstOrDefault().Name)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.FirstOrDefault().LastModified)
+                </th>
+                <th></th>
+            </tr>
+            @{
+                var projectList = Model.OrderBy(model => model.Name).ToList();
+            }
+            @foreach (var project in projectList)
+            {
+                var color = Vision_V1.Models.Types.ColorSchema.PrimaryDark;
+                var color2 = Vision_V1.Models.Types.ColorSchema.PrimaryDark;
+                if (Vision_V1.ViewModels.PageManager.CurrentProject != null && Vision_V1.ViewModels.PageManager.CurrentProject.ID == project.ID)
+                {
+                    color2 = Vision_V1.Models.Types.ColorSchema.Green.Medium;
+                }
+                <tr style="background-color:@color; border: 3px solid @color2">
+                    <td>
+                        <span class="padding-2">@Html.DisplayFor(modelItem => project.Name)</span>
+                    </td>
+                    <td>
+                        <span class="padding-2">@Html.DisplayFor(modelItem => project.LastModified)</span>
+                    </td>
+                    <td>
+                        <span class="right">
+                            @if (Vision_V1.ViewModels.PageManager.CurrentProject == null || Vision_V1.ViewModels.PageManager.CurrentProject.ID != project.ID)
+                            {
+                                <button type="button" class="btn btn-default" onclick="location.href='@Url.Action("Load","Projects", new { id = project.ID })'">
+                                    <img src="~/Content/Icons/Load.png" alt="Load" class="small_image" />
+                                </button>
+                            }
+                            <button type="button" class="btn btn-default" onclick="location.href='@Url.Action("Edit","Projects", new { id = project.ID })'">
+                                <img src="~/Content/Icons/Edit.png" alt="Edit" class="small_image" />
+                            </button>
+                            <button type="button" class="btn btn-default" onclick="location.href='@Url.Action("Delete","Projects", new { id = project.ID })'">
+                                <img src="~/Content/Icons/Trash.png" alt="Delete" class="small_image" />
+                            </button>
+                        </span>
+                    </td>
+                </tr>
+            }
+        </table>
+    }
+}

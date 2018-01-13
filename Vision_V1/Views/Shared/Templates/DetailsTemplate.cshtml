@@ -1,0 +1,63 @@
+﻿@{
+    ViewBag.Title = "DetailsTemplate";
+}
+
+@{
+    var controller = ViewBag.Controller;
+    var page = Vision_V1.ViewModels.PageManager.Pages.Find(p => p.Name == "Details" && p.Controller == (string)controller);
+    var propertyCount = page.PropertyCount;
+}
+
+<div class="border">
+    <div class="container title">
+        <div class="row padding-5">
+            <div class="col-lg-7">
+                @RenderSection("Title", true)
+            </div>
+            <div class="col-lg-5">
+                <span class="right">
+                    @RenderSection("Links", false)
+                </span>
+            </div>
+        </div>
+    </div>
+
+    @if (propertyCount > 0)
+    {
+        <div class="container top-margin-20 bottom-margin-20">
+            <div class="row">
+                <div class="form-group">
+                    <div class="col-lg-offset-1 col-lg-2 label2">
+                        @RenderSection($"Attribute1Name", false)
+                    </div>
+                    <div class="col-lg-9">
+                        @RenderSection($"Attribute1Prop", false)
+                    </div>
+                </div>
+            </div>
+
+            @RenderSection("groupAttributes", false)
+
+            @if (propertyCount > 1)
+            {
+                for (int i = 2; i <= propertyCount; i++)
+                {
+                    <div class="row">
+                        <div class="form-group">
+                            <div class="col-lg-offset-1 col-lg-2 label2">
+                                @RenderSection($"Attribute{i}Name", false)
+                            </div>
+                            <div class="col-lg-9">
+                                @RenderSection($"Attribute{i}Prop", false)
+                            </div>
+                        </div>
+                    </div>
+                }
+            }
+    </div>
+    }
+    <div class="container padding-bottom-10">
+        @RenderSection("ListOf", false)
+    </div>
+</div>
+

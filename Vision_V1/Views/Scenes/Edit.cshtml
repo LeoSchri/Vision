@@ -1,0 +1,44 @@
+﻿@model Vision_V1.Models.Scene
+
+@{
+    ViewBag.Title = "Edit";
+    ViewBag.Controller = "Scenes";
+    Layout = "~/Views/Shared/Templates/EditTemplate.cshtml";
+}
+
+@section Title{@Model.Name}
+
+@section HiddenFields{
+    @Html.HiddenFor(model => model.ID)
+}
+
+@section Attribute1Name{@Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "control-label col-lg-2" })}
+@section Attribute1Edit{
+    @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control" } })
+    @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
+}
+
+@section Attribute2Name{@Html.LabelFor(model => model.Summary, htmlAttributes: new { @class = "control-label col-lg-2" })}
+@section Attribute2Edit{
+    @Html.EditorFor(model => model.Summary, new { htmlAttributes = new { @class = "form-control" } })
+    @Html.ValidationMessageFor(model => model.Summary, "", new { @class = "text-danger" })
+}
+
+@section Attribute3Name{@Html.LabelFor(model => model.Story, htmlAttributes: new { @class = "control-label col-lg-2" })}
+@section Attribute3Edit{
+    @Html.EditorFor(model => model.Story, new { htmlAttributes = new { @class = "form-control" } })
+    @Html.ValidationMessageFor(model => model.Story, "", new { @class = "text-danger" })
+}
+
+@section Attribute4Name{@Html.LabelFor(model => model.Mood, htmlAttributes: new { @class = "control-label col-lg-2" })}
+@section Attribute4Edit{@Html.EnumDropDownListFor(model => model.Mood, htmlAttributes: new { @class = "form-control" })}
+
+@section Attribute5Name{@Html.LabelFor(model => model.Weather, htmlAttributes: new { @class = "control-label col-lg-2" })}
+@section Attribute5Edit{@Html.EnumDropDownListFor(model => model.Weather, htmlAttributes: new { @class = "form-control" })}
+
+
+@section CancelButton{
+    <button type="button" class="btn btn-danger shadow" onclick="location.href='@Url.Action((string)Session["destinedMethod"], (string)Session["destinedController"])'">
+        <img src="~/Content/Icons/CancelWhite.png" alt="Cancel" class="small_image" />
+    </button>
+}

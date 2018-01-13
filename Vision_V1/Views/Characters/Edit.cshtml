@@ -1,0 +1,78 @@
+﻿@model Vision_V1.Models.Character
+
+@{
+    ViewBag.Title = "Edit";
+    ViewBag.Controller = "Characters";
+    Layout = "~/Views/Shared/Templates/EditTemplate.cshtml";
+}
+
+@section Title{@Model.Name}
+
+@section HiddenFields{
+    @Html.HiddenFor(model => model.ID)
+    @Html.HiddenFor(model => model.ProjectId)
+    @Html.HiddenFor(model => model.IsMainCharacter)
+}
+
+@section Attribute1Name{@Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "control-label col-lg-3" })}
+@section Attribute1Edit{
+    @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control" } })
+    @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
+}
+
+@section Attribute2Name{@Html.LabelFor(model => model.History, htmlAttributes: new { @class = "control-label col-lg-3" })}
+@section Attribute2Edit{
+    @Html.EditorFor(model => model.History, new { htmlAttributes = new { @class = "form-control" } })
+    @Html.ValidationMessageFor(model => model.History, "", new { @class = "text-danger" })
+}
+
+@section groupAttributes{
+    @if (Model.CharacterAttributes != null && Model.CharacterAttributes.Any())
+    {
+        for (int i = 0; i < Model.CharacterAttributes.Count; i++)
+        {
+
+
+            var attribute = Model.CharacterAttributes.ElementAt(i).Attribute;
+            var name = $"CharacterAttributes[{i}].Value";
+            var IDname = $"CharacterAttributes[{i}].ID";
+            var AIDname = $"CharacterAttributes[{i}].AttributeId";
+            var CIDname = $"CharacterAttributes[{i}].CharacterId";
+            <div class="form-group">
+                @Html.Label(attribute.Name, htmlAttributes: new { @class = "control-label col-lg-3" })
+                <input id="@IDname" name="@IDname" value="@Model.CharacterAttributes[i].ID" type="hidden">
+                <input id="@AIDname" name="@AIDname" value="@Model.CharacterAttributes[i].AttributeId" type="hidden">
+                <input id="@CIDname" name="@CIDname" value="@Model.CharacterAttributes[i].CharacterId" type="hidden">
+                @if (attribute.Size == 1)
+                {
+                    <div class="col-lg-2">
+                        @*@Html.EditorFor(model => model.CharacterAttributes.ElementAt(i).Value, new { htmlAttributes = new { @class = "form-control" } })*@
+                        <input id="@name" class="form-control text-box single-line" data-val="true" name="@name" value="@Model.CharacterAttributes[i].Value" type="text">
+                    </div>
+                }
+                else if (attribute.Size == 2)
+                {
+                    <div class="col-lg-4">
+                        @*@Html.EditorFor(model => model.CharacterAttributes.ElementAt(i).Value, new { htmlAttributes = new { @class = "form-control" } })*@
+                        <input id="@name" class="form-control text-box single-line" data-val="true" name="@name" value="@Model.CharacterAttributes[i].Value" type="text">
+                    </div>
+                }
+                else if (attribute.Size == 3)
+                {
+                    <div class="col-lg-6">
+                        @*@Html.EditorFor(model => model.CharacterAttributes.ElementAt(i).Value, new { htmlAttributes = new { @class = "form-control" } })*@
+                        <input id="@name" class="form-control text-box single-line" data-val="true" name="@name" value="@Model.CharacterAttributes[i].Value" type="text">
+                    </div>
+                }
+            </div>
+
+        }
+
+    }
+}
+
+@section CancelButton{
+    <button type="button" class="btn btn-danger shadow" onclick="location.href='@Url.Action((string)Session["destinedMethod"], (string)Session["destinedController"])'">
+        <img src="~/Content/Icons/CancelWhite.png" alt="Cancel" class="small_image" />
+    </button>
+}

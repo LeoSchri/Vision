@@ -1,0 +1,90 @@
+﻿@model Vision_V1.Models.Information
+
+@{
+    ViewBag.Title = "Details";
+    ViewBag.Controller = "Information";
+
+    var col = "col-lg-12";
+    if(Model.Parent != null && Model.Parent.Parent != null)
+    {
+        col = "col-lg-11 col-lg-offset-1";
+    }
+}
+
+<div class="@col">
+    <div class="container title2">
+        <div class="row padding-5">
+            <div class="col-lg-7 padding-top-5">@Model.Name</div>
+            <div class="col-lg-5">
+                <span class="right">
+                    <button type="button" class="btn btn-default" onclick="location.href='@Url.Action("EditChild","Information", new { id = Model.ID })'">
+                        <img src="~/Content/Icons/Edit.png" alt="Edit" class="small_image" />
+                    </button>
+                    <button type="button" class="btn btn-default" onclick="location.href='@Url.Action("DeleteChild","Information", new { id = Model.ID })'">
+                        <img src="~/Content/Icons/Trash.png" alt="Delete" class="small_image" />
+                    </button>
+                    @{
+                        var canHaveChild = true;
+                        if (Model.Parent != null && Model.Parent.Parent != null)
+                        {
+                            canHaveChild = false;
+                        }
+                    }
+                    @if (canHaveChild)
+                    {
+                        <button type="button" class="btn btn-default disabled" onclick="location.href='@Url.Action("ChangeStructure","Page")'">
+                            <img src="~/Content/Icons/SeperatorDark.png" alt="Seperator" class="small_image" />
+                        </button>
+                        <button type="button" class="btn btn-default" onclick="location.href='@Url.Action("CreateChild","Information", new { id = Model.ID })'">
+                            <img src="~/Content/Icons/New.png" alt="Create child" class="small_image" />
+                        </button>
+                    }
+                </span>
+            </div>
+        </div>
+    </div>
+
+    <div class="container top-margin-10 padding-bottom-10">
+        <div class="row">
+            <div class="col-lg-12">
+                @Html.DisplayFor(model => model.Content)
+            </div>
+        </div>
+    </div>
+
+    <div class="container top-margin-10 padding-bottom-10">
+        <div class="row">
+            <div class="col-lg-12">
+                @if (Model.SubContents != null && Model.SubContents.Any())
+                {
+                    foreach (var info in Model.SubContents)
+                    {
+                        if (Session["InformationId"] != null && (int)Session["InformationId"] == info.ID && (string)Session["Type"] == "Edit")
+                        {
+                            @Html.Partial("~/Views/Information/EditChild.cshtml", info)
+                        }
+                        else if (Session["InformationId"] != null && (int)Session["InformationId"] == info.ID && (string)Session["Type"] == "Delete")
+                        {
+                            @Html.Partial("~/Views/Information/DeleteChild.cshtml", info)
+                        }
+                        else
+                        {
+                            @Html.Partial("~/Views/Information/DetailsC.cshtml", info)
+                        }
+                    }
+                }
+                @if (Session["InformationId"] != null && (string)Session["Type"] == "Create")
+                {
+                    if (Model.ID == (int)Session["InformationId"])
+                    {
+                        @Html.Partial("~/Views/Information/CreateChild.cshtml", new Vision_V1.Models.Information(), new ViewDataDictionary(new Vision_V1.Models.Information()))
+                    }
+                }
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+

@@ -1,0 +1,135 @@
+﻿@model Vision_V1.Models.Scene
+
+@{
+    ViewBag.Title = "Details";
+    ViewBag.Controller = "Scenes";
+    Layout = "~/Views/Shared/Templates/DetailsTemplate.cshtml";
+}
+
+@section Title{@Model.Name}
+
+
+@section Links{
+    <button type="button" class="btn btn-primary" onclick="location.href='@Url.Action("Edit","Scenes", new { id = Model.ID })'">
+        <img src="~/Content/Icons/Edit.png" alt="Load" class="small_image" />
+    </button>
+    <button type="button" class="btn btn-primary" onclick="location.href='@Url.Action("Delete","Scenes", new { id = Model.ID })'">
+        <img src="~/Content/Icons/Trash.png" alt="Delete" class="small_image" />
+    </button>
+    @{
+        var page = Vision_V1.ViewModels.PageManager.Pages.Find(p => p.Name == ViewBag.Title && p.Controller == ViewBag.Controller);
+        var index = Vision_V1.ViewModels.PageManager.Pages.IndexOf(page);
+        var isLast = false;
+        if (index == Vision_V1.ViewModels.PageManager.Pages.Count - 1)
+        {
+            isLast = true;
+        }
+    }
+    @if (Vision_V1.ViewModels.PageManager.Pages.Count > 1 && isLast)
+    {
+        <button type="button" class="btn btn-default disabled" onclick="location.href='@Url.Action("ChangeStructure","Page")'">
+            <img src="~/Content/Icons/SeperatorLight.png" alt="Seperator" class="small_image" />
+        </button>
+        <button type="button" class="btn btn-primary" onclick="location.href='@Url.Action("RemovePageWID","Page", new { id = index })'">
+            <img src="~/Content/Icons/Cancel.png" alt="Delete" class="small_image" />
+        </button>
+    }
+}
+
+@section Attribute1Name{@Html.DisplayNameFor(model => model.Name)}
+@section Attribute1Prop{@Html.DisplayFor(model => model.Name)}
+
+@section Attribute2Name{@Html.DisplayNameFor(model => model.Summary)}
+@section Attribute2Prop{@Html.DisplayFor(model => model.Summary)}
+
+@section Attribute3Name{@Html.DisplayNameFor(model => model.Story)}
+@section Attribute3Prop{@Html.DisplayFor(model => model.Story)}
+
+@section Attribute4Name{@Html.DisplayNameFor(model => model.Mood)}
+@section Attribute4Prop{@Html.DisplayFor(model => model.Mood)}
+
+@section Attribute7Name{@Html.DisplayNameFor(model => model.Weather)}
+@section Attribute7Prop{@Html.DisplayFor(model => model.Weather)}
+
+@section Attribute6Name{
+    @Html.DisplayNameFor(model => model.Location)
+}
+@section Attribute6Prop{
+    @if (Model.LocationId != null)
+    {
+        <span>
+            <button type="button" class="btn btn-link text-small" onclick="location.href='@Url.Action("Details","Locations", new { id = Model.LocationId })'">
+                @Html.DisplayFor(model => model.Location.Name)
+            </button>
+            (
+            <button type="button" class="btn btn-link" onclick="location.href='@Url.Action("PickForL","Locations")'">
+                Change
+            </button>
+            )
+        </span>
+    }
+    else
+    {
+        <span>
+            NS
+            (
+            <button type="button" class="btn btn-link" onclick="location.href='@Url.Action("PickForL","Locations")'">
+                Pick a location
+            </button>
+            )
+        </span>
+    }
+}
+
+@section Attribute5Name{
+    @Html.DisplayNameFor(model => model.POVCharacter)
+}
+@section Attribute5Prop{
+    @if (Model.POVCharacterId != null)
+    {
+        <span>
+            <button type="button" class="btn btn-link text-small" onclick="location.href='@Url.Action("Details","MainCharacters", new { id = Model.POVCharacterId })'">
+                @Html.DisplayFor(model => model.POVCharacter.Name)
+            </button>
+            (
+            <button type="button" class="btn btn-link" onclick="location.href='@Url.Action("PickForPOVC","MainCharacters")'">
+                Change
+            </button>
+            )
+        </span>
+    }
+    else
+    {
+        <span>
+            NS
+            (
+            <button type="button" class="btn btn-link" onclick="location.href='@Url.Action("PickForPOVC","MainCharacters")'">
+                Pick a character
+            </button>
+            )
+        </span>
+    }
+}
+
+
+@section Attribute8Name{@Html.DisplayNameFor(model => model.LastModified)}
+@section Attribute8Prop{@Html.DisplayFor(model => model.LastModified)}
+
+@section ListOf{
+    <div>
+        <div>
+            @Html.Partial("~/Views/Characters/Index.cshtml", Model.AttendantCharacters.ToList())
+        </div>
+        <div class="top-margin-20">
+            @Html.Partial("~/Views/CharacterEvolvements/Index.cshtml", Model.CharacterEvolvements.ToList())
+        </div>
+        <div class="top-margin-20">
+            @Html.Partial("~/Views/RelationshipPhases/Index.cshtml", Model.RelationshipChanges.ToList())
+        </div>
+        <div class="top-margin-20">
+            @Html.Partial("~/Views/Scenes/IndexDS.cshtml", Model)
+        </div>
+    </div>
+}
+
+

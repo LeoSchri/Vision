@@ -1,0 +1,37 @@
+﻿@model Vision_V1.Models.RelationshipPhase
+
+@{
+    ViewBag.Title = "Create";
+    ViewBag.Controller = "RelationshipPhases";
+    Layout = "~/Views/Shared/Templates/CreateTemplate.cshtml";
+}
+
+@section Typ{Relationship phase}
+
+@section HiddenFields{
+    @Html.HiddenFor(model => model.ID)
+}
+
+@section Attribute1Name{@Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "control-label col-lg-3" })}
+@section Attribute1Edit{
+    @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control" } })
+    @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
+}
+
+@section Attribute2Name{@Html.LabelFor(model => model.Relation, htmlAttributes: new { @class = "control-label col-lg-3" })}
+@section Attribute2Edit{@Html.EnumDropDownListFor(model => model.Relation, new { htmlAttributes = new { @class = "form-control" } })}
+
+@section Attribute3Name{@Html.LabelFor(model => model.Closeness, htmlAttributes: new { @class = "control-label col-lg-3" })}
+@section Attribute3Edit{@Html.EnumDropDownListFor(model => model.Closeness, new { htmlAttributes = new { @class = "form-control" } })}
+
+@section Attribute4Name{@Html.LabelFor(model => model.ThoughtsOnCounterpart, htmlAttributes: new { @class = "control-label col-lg-3" })}
+@section Attribute4Edit{
+    @Html.EditorFor(model => model.ThoughtsOnCounterpart, new { htmlAttributes = new { @class = "form-control" } })
+    @Html.ValidationMessageFor(model => model.ThoughtsOnCounterpart, "", new { @class = "text-danger" })
+}
+
+@section CancelButton{
+    <button type="button" class="btn btn-danger shadow" onclick="location.href='@Url.Action("Details", "Relationship")'">
+        <img src="~/Content/Icons/CancelWhite.png" alt="Cancel" class="small_image" />
+    </button>
+}

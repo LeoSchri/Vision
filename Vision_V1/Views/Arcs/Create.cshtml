@@ -1,0 +1,34 @@
+﻿@model Vision_V1.Models.Arc
+
+@{
+    ViewBag.Title = "Create";
+    ViewBag.Controller = "Arcs";
+    Layout = "~/Views/Shared/Templates/CreateTemplate.cshtml";
+}
+
+@section Typ{Arc}
+
+@section HiddenFields{
+    @Html.HiddenFor(model => model.ID)
+}
+
+@section Attribute1Name{@Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "control-label col-lg-3" })}
+@section Attribute1Edit{
+    @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control" } })
+    @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
+}
+
+@section Attribute2Name{@Html.LabelFor(model => model.Summary, htmlAttributes: new { @class = "control-label col-lg-3" })}
+@section Attribute2Edit{
+    @Html.EditorFor(model => model.Summary, new { htmlAttributes = new { @class = "form-control" } })
+    @Html.ValidationMessageFor(model => model.Summary, "", new { @class = "text-danger" })
+}
+
+@section Attribute3Name{@Html.LabelFor(model => model.EstimatedDuration, htmlAttributes: new { @class = "control-label col-lg-3" })}
+@section Attribute3Edit{@Html.EnumDropDownListFor(model => model.EstimatedDuration, htmlAttributes: new { @class = "form-control" })}
+
+@section CancelButton{
+    <button type="button" class="btn btn-danger shadow shadow" onclick="location.href='@Url.Action("Details", "Books")'">
+        <img src="~/Content/Icons/CancelWhite.png" alt="Cancel" class="small_image" />
+    </button>
+}

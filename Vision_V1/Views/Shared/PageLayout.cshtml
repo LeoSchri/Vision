@@ -1,0 +1,380 @@
+﻿@{
+    ViewBag.Title = "PageLayout";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@{
+    var structureId = Vision_V1.ViewModels.PageManager.StructureId;
+}
+
+<div class="container top-margin-40">
+    <div class="row">
+        @RenderBody()
+        @if(structureId == 1)
+        {
+            @RenderSection("Section1", false)
+        }
+        else if (structureId == 2)
+        {
+            <div class="col-lg-4">
+                @RenderSection("Section1", false)
+            </div>
+            <div class="col-lg-8">
+                @RenderSection("Section2", false)
+            </div>
+        }
+        else if (structureId == 3)
+        {
+            <div class="col-lg-6">
+                @RenderSection("Section1", false)
+            </div>
+            <div class="col-lg-6">
+                @RenderSection("Section2", false)
+            </div>
+        }
+        else if (structureId == 4)
+        {
+            <div class="row">
+                @RenderSection("Section1", false)
+            </div>
+            <div class="row top-margin-10">
+                @RenderSection("Section2", false)
+            </div>
+        }
+        else if (structureId == 5)
+        {
+            <div class="col-lg-4">
+                <div class="row">
+                    @RenderSection("Section1", false)
+                </div>
+                <div class="row top-margin-10">
+                    @RenderSection("Section2", false)
+                </div>
+            </div>
+            <div class="col-lg-8">
+                @RenderSection("Section3", false)
+            </div>
+        }
+        else if (structureId == 6)
+        {
+            <div class="col-lg-4">
+                @RenderSection("Section1", false)
+            </div>
+            <div class="col-lg-4">
+                @RenderSection("Section2", false)
+            </div>
+            <div class="col-lg-4">
+                @RenderSection("Section3", false)
+            </div>
+        }
+        else if (structureId == 7)
+        {
+            <div class="row">
+                <div class="col-lg-6">
+                    @RenderSection("Section1", false)
+                </div>
+                <div class="col-lg-6">
+                    @RenderSection("Section2", false)
+                </div>
+            </div>
+            <div class="row top-margin-10">
+                @RenderSection("Section3", false)
+            </div>
+        }
+        else if (structureId == 8)
+        {
+            <div class="col-lg-4">
+                @RenderSection("Section1", false)
+            </div>
+            <div class="col-lg-8">
+                <div class="row">
+                    @RenderSection("Section2", false)
+                </div>
+                <div class="row top-margin-10">
+                    @RenderSection("Section3", false)
+                </div>
+            </div>
+        }
+        else if (structureId == 9)
+        {
+            <div class="col-lg-4">
+                <div class="row">
+                    @RenderSection("Section1", false)
+                </div>
+                <div class="row top-margin-10">
+                    @RenderSection("Section2", false)
+                </div>
+                <div class="row top-margin-10">
+                    @RenderSection("Section3", false)
+                </div>
+            </div>
+            <div class="col-lg-8">
+                @RenderSection("Section4", false)
+            </div>
+        }
+        else if (structureId == 10)
+        {
+            <div class="col-lg-4">
+                <div class="row">
+                    @RenderSection("Section1", false)
+                </div>
+                <div class="row top-margin-10">
+                    @RenderSection("Section2", false)
+                </div>
+            </div>
+            <div class="col-lg-4">
+                @RenderSection("Section3", false)
+            </div>
+            <div class="col-lg-4">
+                @RenderSection("Section4", false)
+            </div>
+        }
+        else if (structureId == 11)
+        {
+            <div class="col-lg-4">
+                <div class="row">
+                    @RenderSection("Section1", false)
+                </div>
+                <div class="row top-margin-10">
+                    @RenderSection("Section2", false)
+                </div>
+            </div>
+            <div class="col-lg-8">
+                <div class="row">
+                    @RenderSection("Section3", false)
+                </div>
+                <div class="row top-margin-10">
+                    @RenderSection("Section4", false)
+                </div>
+            </div>
+        }
+        else if (structureId == 12)
+        {
+            <div class="col-lg-6">
+                <div class="row">
+                    @RenderSection("Section1", false)
+                </div>
+                <div class="row top-margin-10">
+                    @RenderSection("Section2", false)
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <div class="row">
+                    @RenderSection("Section3", false)
+                </div>
+                <div class="row top-margin-10">
+                    @RenderSection("Section4", false)
+                </div>
+            </div>
+        }
+        else if (structureId == 13)
+        {
+            <div class="col-lg-4">
+                <div class="row">
+                    @RenderSection("Section1", false)
+                </div>
+                <div class="row top-margin-10">
+                    @RenderSection("Section2", false)
+                </div>
+                <div class="row top-margin-10">
+                    @RenderSection("Section3", false)
+                </div>
+            </div>
+            <div class="col-lg-4">
+                @RenderSection("Section4", false)
+            </div>
+            <div class="col-lg-4">
+                @RenderSection("Section5", false)
+            </div>
+        }
+        else if (structureId == 14)
+        {
+            <div class="col-lg-4">
+                <div class="row">
+                    @RenderSection("Section1", false)
+                </div>
+                <div class="row top-margin-10">
+                    @RenderSection("Section2", false)
+                </div>
+            </div>
+            <div class="col-lg-4">
+                <div class="row">
+                    @RenderSection("Section3", false)
+                </div>
+                <div class="row top-margin-10">
+                    @RenderSection("Section4", false)
+                </div>
+            </div>
+            <div class="col-lg-4">
+                @RenderSection("Section5", false)
+            </div>
+        }
+        else if (structureId == 15)
+        {
+            <div class="row">
+                <div class="col-lg-4">
+                    @RenderSection("Section1", false)
+                </div>
+                <div class="col-lg-4">
+                    @RenderSection("Section2", false)
+                </div>
+                <div class="col-lg-4">
+                    @RenderSection("Section3", false)
+                </div>
+            </div>
+            <div class="row top-margin-10">
+                <div class="col-lg-4">
+                    @RenderSection("Section4", false)
+                </div>
+                <div class="col-lg-8">
+                    @RenderSection("Section5", false)
+                </div>
+            </div>
+        }
+        else if (structureId == 16)
+        {
+            <div class="col-lg-4">
+                <div class="row">
+                    @RenderSection("Section1", false)
+                </div>
+                <div class="row top-margin-10">
+                    @RenderSection("Section2", false)
+                </div>
+                <div class="row top-margin-10">
+                    @RenderSection("Section3", false)
+                </div>
+            </div>
+            <div class="col-lg-8">
+                <div class="row">
+                    @RenderSection("Section4", false)
+                </div>
+                <div class="row top-margin-10">
+                    @RenderSection("Section5", false)
+                </div>
+            </div>
+        }
+        else if (structureId == 17)
+        {
+            <div class="col-lg-4">
+                <div class="row">
+                    @RenderSection("Section1", false)
+                </div>
+                <div class="row top-margin-10">
+                    @RenderSection("Section2", false)
+                </div>
+                <div class="row top-margin-10">
+                    @RenderSection("Section3", false)
+                </div>
+            </div>
+            <div class="col-lg-4">
+                <div class="row">
+                    @RenderSection("Section4", false)
+                </div>
+                <div class="row top-margin-10">
+                    @RenderSection("Section5", false)
+                </div>
+            </div>
+            <div class="col-lg-4">
+                @RenderSection("Section6", false)
+            </div>
+        }
+        else if (structureId == 18)
+        {
+            <div class="col-lg-4">
+                <div class="row">
+                    @RenderSection("Section1", false)
+                </div>
+                <div class="row top-margin-10">
+                    @RenderSection("Section2", false)
+                </div>
+            </div>
+            <div class="col-lg-4">
+                <div class="row">
+                    @RenderSection("Section3", false)
+                </div>
+                <div class="row top-margin-10">
+                    @RenderSection("Section4", false)
+                </div>
+            </div>
+            <div class="col-lg-4">
+                <div class="row">
+                    @RenderSection("Section5", false)
+                </div>
+                <div class="row top-margin-10">
+                    @RenderSection("Section6", false)
+                </div>
+            </div>
+        }
+        else if (structureId == 19)
+        {
+            <div class="col-lg-6">
+                <div class="row">
+                    @RenderSection("Section1", false)
+                </div>
+                <div class="row top-margin-10">
+                    @RenderSection("Section2", false)
+                </div>
+                <div class="row top-margin-10">
+                    @RenderSection("Section3", false)
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <div class="row">
+                    @RenderSection("Section4", false)
+                </div>
+                <div class="row top-margin-10">
+                    @RenderSection("Section5", false)
+                </div>
+                <div class="row top-margin-10">
+                    @RenderSection("Section6", false)
+                </div>
+            </div>
+        }
+        else if (structureId == 20)
+        {
+            <div class="col-lg-4">
+                <div class="row">
+                    @RenderSection("Section1", false)
+                </div>
+                <div class="row top-margin-10">
+                    @RenderSection("Section2", false)
+                </div>
+                <div class="row top-margin-10">
+                    @RenderSection("Section3", false)
+                </div>
+            </div>
+            <div class="col-lg-8">
+                <div class="row">
+                    @RenderSection("Section4", false)
+                </div>
+                <div class="row top-margin-10">
+                    @RenderSection("Section5", false)
+                </div>
+                <div class="row top-margin-10">
+                    @RenderSection("Section6", false)
+                </div>
+            </div>
+        }
+        else if (structureId == 21)
+        {
+            <div class="col-lg-4">
+                <div class="row">
+                    @RenderSection("Section1", false)
+                </div>
+                <div class="row top-margin-10">
+                    @RenderSection("Section2", false)
+                </div>
+                <div class="row top-margin-10">
+                    @RenderSection("Section3", false)
+                </div>
+                <div class="row top-margin-10">
+                    @RenderSection("Section4", false)
+                </div>
+            </div>
+            <div class="col-lg-8">
+                @RenderSection("Section5", false)
+            </div>
+        }
+    </div>
+</div>
+

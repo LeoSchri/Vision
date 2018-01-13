@@ -1,0 +1,18 @@
+﻿
+@{
+    ViewBag.Title = "ListTemplate";
+}
+
+<div class="border">
+    <div class="container title">
+        <div class="row padding-5">
+            <div class="col-lg-8">@RenderSection("Title",true)</div>
+            <div class="col-lg-4">
+                @RenderSection("Links",true)
+            </div>
+        </div>
+    </div>
+    <div class="container top-margin-10 padding-bottom-10">
+        @RenderSection("List",true)
+    </div>
+</div>

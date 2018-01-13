@@ -1,0 +1,24 @@
+﻿@model Vision_V1.Models.MainCharacter
+
+@{
+    ViewBag.Title = "Delete";
+    ViewBag.Controller = "MainCharacters";
+    Layout = "~/Views/Shared/Templates/DeleteTemplate.cshtml";
+}
+
+@section Typ{Main character}
+
+@section Attribute1Name{@Html.DisplayNameFor(model => model.Name)}
+@section Attribute1Prop{@Html.DisplayFor(model => model.Name)}
+
+@section Attribute2Name{#@Html.DisplayNameFor(model => model.POVScenes)}
+@section Attribute2Prop{@Html.DisplayFor(model => model.POVScenes.Count)}
+
+@section Attribute3Name{@Html.DisplayNameFor(model => model.LastModified)}
+@section Attribute3Prop{@Html.DisplayFor(model => model.LastModified)}
+
+@section CancelButton{
+    <button type="button" class="btn btn-danger shadow" onclick="location.href='@Url.Action((string)Session["destinedMethod"], (string)Session["destinedController"])'">
+        <img src="~/Content/Icons/CancelWhite.png" alt="Cancel" class="small_image" />
+    </button>
+}

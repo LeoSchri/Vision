@@ -1,0 +1,31 @@
+﻿@model Vision_V1.Models.Character
+
+@{
+    ViewBag.Title = "Create";
+    ViewBag.Controller = "Characters";
+    Layout = "~/Views/Shared/Templates/CreateTemplate.cshtml";
+}
+
+@section Typ{Character}
+
+@section HiddenFields{
+    @Html.HiddenFor(model => model.ID)
+}
+
+@section Attribute1Name{@Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "control-label col-lg-3" })}
+@section Attribute1Edit{
+    @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control" } })
+    @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
+}
+
+@section Attribute2Name{@Html.LabelFor(model => model.History, htmlAttributes: new { @class = "control-label col-lg-3" })}
+@section Attribute2Edit{
+    @Html.EditorFor(model => model.History, new { htmlAttributes = new { @class = "form-control" } })
+    @Html.ValidationMessageFor(model => model.History, "", new { @class = "text-danger" })
+}
+
+@section CancelButton{
+    <button type="button" class="btn btn-danger shadow" onclick="location.href='@Url.Action("Home", "Characters")'">
+        <img src="~/Content/Icons/CancelWhite.png" alt="Cancel" class="small_image" />
+    </button>
+}

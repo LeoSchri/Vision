@@ -1,0 +1,23 @@
+﻿@model Vision_V1.Models.Attribute
+
+@{
+    ViewBag.Title = "Delete";
+    ViewBag.Controller = "Attributes";
+    Layout = "~/Views/Shared/Templates/DeleteTemplate.cshtml";
+}
+
+@section Typ{Attribute}
+
+@section Attribute1Name{@Html.DisplayNameFor(model => model.Name)}
+@section Attribute1Prop{@Html.DisplayFor(model => model.Name)}
+
+@section Attribute2Name{@Html.DisplayNameFor(model => model.Size)}
+@section Attribute2Prop{@Html.DisplayFor(model => model.Size)}
+
+@section CancelButton{
+    <button type="button" class="btn btn-danger shadow" onclick="location.href='@Url.Action("Home","Attributes")'">
+        <img src="~/Content/Icons/CancelWhite.png" alt="Cancel" class="small_image" />
+    </button>
+}
+
+
