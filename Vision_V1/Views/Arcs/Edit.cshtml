@@ -8,12 +8,6 @@
 
 @section Title{@Model.Name}
 
-@section Links{
-    <button type="button" class="btn btn-link" onclick="location.href='@Url.Action("PickForBook","Plotlines", new { id = Model.ID })'">
-        Pick a main plotline
-    </button>
-}
-
 @section HiddenFields{
     @Html.HiddenFor(model => model.ID)
     @Html.HiddenFor(model => model.BookId)

@@ -123,7 +123,7 @@ namespace Vision_V1.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "ID,Name,EstimatedDuration")] Arc arc)
+        public ActionResult Create([Bind(Include = "ID,Name,Summary,EstimatedDuration")] Arc arc)
         {
             pc.RemovePage("Create","Arcs");
 
@@ -148,7 +148,7 @@ namespace Vision_V1.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "ID,Name,EstimatedDuration,BookId")] Arc arc)
+        public ActionResult Edit([Bind(Include = "ID,Name,Summary,EstimatedDuration,BookId")] Arc arc)
         {
             pc.RemovePage("Edit","Arcs");
 

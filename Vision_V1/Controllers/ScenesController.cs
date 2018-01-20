@@ -223,7 +223,7 @@ namespace Vision_V1.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Mood,Weather,Name,Summary")] Scene scene)
+        public ActionResult Create([Bind(Include = "Mood,Weather,Name,Summary,Story")] Scene scene)
         {
             pc.RemovePage("Create","Scenes");
 
@@ -249,7 +249,7 @@ namespace Vision_V1.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "ID,Mood,Weather,Name,Summary")] Scene scene)
+        public ActionResult Edit([Bind(Include = "ID,Mood,Weather,Name,Summary,Story")] Scene scene)
         {
             pc.RemovePage("Edit","Scenes");
 

@@ -125,7 +125,7 @@ namespace Vision_V1.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Name,EstimatedDuration")] Book book)
+        public ActionResult Create([Bind(Include = "Name,Summary,EstimatedDuration")] Book book)
         {
             pc.RemovePage("Create","Books");
 
@@ -147,7 +147,7 @@ namespace Vision_V1.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "ID,Name,EstimatedDuration")] Book book)
+        public ActionResult Edit([Bind(Include = "ID,Name,Summary,EstimatedDuration")] Book book)
         {
             pc.RemovePage("Edit","Books");
 

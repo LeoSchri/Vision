@@ -68,7 +68,6 @@ namespace Vision_V1.Controllers
                 return HttpNotFound();
             }
 
-            PageManager.CurrentProject = project;
             return pc.AddDeletePage("Projects", project,5, standAlone:true);
         }
 
