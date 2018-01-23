@@ -33,15 +33,15 @@ else
         <button type="button" class="btn btn-primary" onclick="location.href='@Url.Action("Create","Characters")'">
             <img src="~/Content/Icons/New.png" alt="Create character" class="small_image" />
         </button>
+        <button type="button" class="btn btn-primary" onclick="location.href='@Url.Action("Home","Attributes")'">
+            <img src="~/Content/Icons/ManageColumns.png" alt="Manage attributes" class="small_image" />
+        </button>
         if (Vision_V1.ViewModels.PageManager.CurrentCharacter != null)
         {
             <button type="button" class="btn btn-primary" onclick="location.href='@Url.Action("List","Characters")'">
                 <img src="~/Content/Icons/Minimize.png" alt="Back to list" class="small_image" />
             </button>
         }
-        <button type="button" class="btn btn-primary" onclick="location.href='@Url.Action("Home","Attributes")'">
-            <img src="~/Content/Icons/ManageColumns.png" alt="Manage attributes" class="small_image" />
-        </button>
     }
 
 </span>
@@ -65,9 +65,12 @@ else
                 {
                     foreach (var attribute in Vision_V1.ViewModels.PageManager.Attributes)
                     {
-                        <th>
-                            @attribute.Name
-                        </th>
+                        if(attribute.ShowInTable)
+                        {
+                            <th>
+                                @attribute.Name
+                            </th>
+                        }
                     }
                 }
                 <th>
@@ -93,9 +96,12 @@ else
                     {
                         foreach (var attribute in Vision_V1.ViewModels.PageManager.Attributes)
                         {
-                            <td>
-                                @Html.DisplayFor(modelItem => character.CharacterAttributes.ToList().Find(a=> a.Attribute.Name == attribute.Name).Value)
-                            </td>
+                            if (attribute.ShowInTable)
+                            {
+                                <td>
+                                    @Html.DisplayFor(modelItem => character.CharacterAttributes.ToList().Find(a=> a.Attribute.Name == attribute.Name).Value)
+                                </td>
+                            }
                         }
                     }
                     <td>

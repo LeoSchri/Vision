@@ -1,12 +1,12 @@
 ﻿@model Vision_V1.Models.Attribute
 
 @{
-    ViewBag.Title = "Create";
+    ViewBag.Title = "Edit";
     ViewBag.Controller = "Attributes";
-    Layout = "~/Views/Shared/Templates/CreateTemplate.cshtml";
+    Layout = "~/Views/Shared/Templates/EditTemplate.cshtml";
 }
 
-@section Typ{Attribute}
+@section Title{@Model.Name}
 
 @section HiddenFields{@Html.HiddenFor(model => model.ProjectId)}
 
@@ -18,7 +18,7 @@
 
 @{
     var sizeList = Vision_V1.Models.Types.GetTypesAsList<Vision_V1.Models.Types.InputFieldSize>();
-    var shownInTable = new List<string>() { "Yes","No"};
+    var shownInTable = new List<string>() { "Yes", "No" };
 }
 @section Attribute2Name{@Html.LabelFor(model => model.Size, htmlAttributes: new { @class = "control-label col-lg-3" })}
 @section Attribute2Edit{@Html.DropDownListFor(model => model.Size, new SelectList(sizeList), new { htmlAttributes = new { @class = "form-control" } })}

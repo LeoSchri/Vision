@@ -8,7 +8,7 @@
 
 @section Title{@Model.Name}
 
-@section Links{
+@section TitleLinks{
     <button type="button" class="btn btn-primary" onclick="location.href='@Url.Action("Edit","Arcs", new { id = Model.ID })'">
         <img src="~/Content/Icons/Edit.png" alt="Load" class="small_image" />
     </button>
@@ -60,13 +60,6 @@
     @if (Model.PlotlineId != null)
     {
         @Html.DisplayFor(model => model.MainPlotline.Name)
-        <span>
-            (
-            <button type="button" class="btn btn-link" onclick="location.href='@Url.Action("Details","Plotlines", new { id = Model.PlotlineId })'">
-                To Plotline
-            </button>
-            )
-        </span>
     }
     else
     {
@@ -76,6 +69,27 @@
 
 @section Attribute5Name{@Html.DisplayNameFor(model => model.LastModified)}
 @section Attribute5Prop{@Html.DisplayFor(model => model.LastModified)}
+
+@section Links{
+    @if (Model.PlotlineId != null)
+    {
+        <button type="button" class="btn btn-warning" onclick="location.href='@Url.Action("Details","Plotlines", new { id=Model.PlotlineId})'">
+            View main plotline
+        </button>
+        <button type="button" class="btn btn-danger" onclick="location.href='@Url.Action("PickForMPA","Plotlines")'">
+            Change main plotline
+        </button>
+        <button type="button" class="btn btn-info" onclick="location.href='@Url.Action("RemovePlotline","Arcs", new { id = Model.ID })'">
+            Remove main plotline
+        </button>
+    }
+    else
+    {
+        <button type="button" class="btn btn-success" onclick="location.href='@Url.Action("PickForMPA","Plotlines")'">
+            Pick a main plotline
+        </button>
+    }
+}
 
 @section ListOf{@Html.Partial("~/Views/Chapters/Index.cshtml", Model.Chapters)}
 

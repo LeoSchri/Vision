@@ -1,0 +1,25 @@
+﻿@{
+    Layout = "~/Views/Shared/Templates/PageTemplate.cshtml";
+}
+
+@section Title{@RenderSection("Title", true)}
+
+@section TitleLinks{@RenderSection("TitleLinks", false)}
+
+@section Content{
+    <div class="container top-margin-20">
+        @RenderSection("Content", true)
+    </div> 
+}
+
+@section Links{
+    <div class="container top-margin-20">
+        @RenderSection("Links", true)
+    </div>
+}
+
+@section SubContents{
+    <div class="container top-margin-20">
+        @RenderSection("Subcontents", true)
+    </div>
+}

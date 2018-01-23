@@ -1,0 +1,27 @@
+﻿@model List<Vision_V1.Models.Types.PropInfo<T>>
+
+@for(int i=0; i< Model.Count; i++)
+{
+    <div class="form-group">
+        @Html.Label(Model[i].Name, htmlAttributes: new { @class = "control-label col-lg-3" })
+        @if (Model[i].Type.IsEnum)
+        {
+            var list = Vision_V1.Models.Types.GetTypesAsList(Model[i].Name);
+            <div class="col-lg-3">
+                @Html.DropDownList(Model[i].Name, new SelectList(list), htmlAttributes: new { @class = "form-control" })
+            </div>
+        }
+        else if (Model[i].Type == typeof(string))
+        {
+            <div class="col-lg-6">
+                @Html.EditorFor(Model => Model[i].Item., new { htmlAttributes = new { @class = "form-control" } })
+            </div>
+        }
+        else
+        {
+            <div class="col-lg-4">
+                @Html.Editor(Model[i].Value, new { htmlAttributes = new { @class = "form-control" } })
+            </div>
+        }
+    </div>
+}

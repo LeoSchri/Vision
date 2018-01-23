@@ -9,7 +9,7 @@
 @section Title{@Model.Name}
 
 
-@section Links{
+@section TitleLinks{
     <button type="button" class="btn btn-primary" onclick="location.href='@Url.Action("Edit","Scenes", new { id = Model.ID })'">
         <img src="~/Content/Icons/Edit.png" alt="Load" class="small_image" />
     </button>
@@ -39,22 +39,28 @@
 @section Attribute1Name{@Html.DisplayNameFor(model => model.Name)}
 @section Attribute1Prop{@Html.DisplayFor(model => model.Name)}
 
-@section Attribute2Name{@Html.DisplayNameFor(model => model.Summary)}
-@section Attribute2Prop{@Html.DisplayFor(model => model.Summary)}
+@section Attribute2Name{@Html.DisplayNameFor(model => model.EstimatedDuration)}
+@section Attribute2Prop{@Html.DisplayFor(model => model.EstimatedDuration)}
 
-@section Attribute3Name{@Html.DisplayNameFor(model => model.Story)}
-@section Attribute3Prop{@Html.DisplayFor(model => model.Story)}
+@section Attribute3Name{@Html.DisplayNameFor(model => model.PointInTime)}
+@section Attribute3Prop{@Html.DisplayFor(model => model.PointInTime)}
 
-@section Attribute4Name{@Html.DisplayNameFor(model => model.Mood)}
-@section Attribute4Prop{@Html.DisplayFor(model => model.Mood)}
+@section Attribute4Name{@Html.DisplayNameFor(model => model.Summary)}
+@section Attribute4Prop{@Html.DisplayFor(model => model.Summary)}
 
-@section Attribute7Name{@Html.DisplayNameFor(model => model.Weather)}
-@section Attribute7Prop{@Html.DisplayFor(model => model.Weather)}
+@section Attribute5Name{@Html.DisplayNameFor(model => model.Story)}
+@section Attribute5Prop{@Html.DisplayFor(model => model.Story)}
 
-@section Attribute6Name{
+@section Attribute6Name{@Html.DisplayNameFor(model => model.Mood)}
+@section Attribute6Prop{@Html.DisplayFor(model => model.Mood)}
+
+@section Attribute9Name{@Html.DisplayNameFor(model => model.Weather)}
+@section Attribute9Prop{@Html.DisplayFor(model => model.Weather)}
+
+@section Attribute8Name{
     @Html.DisplayNameFor(model => model.Location)
 }
-@section Attribute6Prop{
+@section Attribute8Prop{
     @if (Model.LocationId != null)
     {
         <span>
@@ -81,10 +87,10 @@
     }
 }
 
-@section Attribute5Name{
+@section Attribute7Name{
     @Html.DisplayNameFor(model => model.POVCharacter)
 }
-@section Attribute5Prop{
+@section Attribute7Prop{
     @if (Model.POVCharacterId != null)
     {
         <span>
@@ -112,8 +118,8 @@
 }
 
 
-@section Attribute8Name{@Html.DisplayNameFor(model => model.LastModified)}
-@section Attribute8Prop{@Html.DisplayFor(model => model.LastModified)}
+@section Attribute10Name{@Html.DisplayNameFor(model => model.LastModified)}
+@section Attribute10Prop{@Html.DisplayFor(model => model.LastModified)}
 
 @section ListOf{
     <div>
@@ -127,7 +133,7 @@
             @Html.Partial("~/Views/RelationshipPhases/Index.cshtml", Model.RelationshipChanges.ToList())
         </div>
         <div class="top-margin-20">
-            @Html.Partial("~/Views/Scenes/IndexDS.cshtml", Model)
+            @Html.Partial("~/Views/Scenes/Index.cshtml", Model)
         </div>
     </div>
 }

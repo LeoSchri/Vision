@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Web;
 
 namespace Vision_V1.Models
@@ -163,19 +164,28 @@ namespace Vision_V1.Models
             ListWS
         }
 
-        public enum Duration
+        public enum InputFieldSize
         {
-            ADay,
-            AFewDays,
-            AWeek,
-            AFewWeeks,
-            AMonth,
-            AFewMonths,
-            HalfAYear,
-            AYear,
-            AFewYears,
-            ADecade,
-            NS
+            Small,
+            Medium,
+            Wide
+        }
+
+        public class PropInfo<T> where T:class
+        {
+            public string Name { get; set; }
+            public string Value { get; set; }
+            public Type Type { get; set; }
+
+            public T Item { get; set; }
+
+            public PropInfo(string name, string value, Type type, T item)
+            {
+                Name = name;
+                Value = value;
+                Type = type;
+                Item = item;
+            }
         }
 
         public class ColorSchema
@@ -187,6 +197,9 @@ namespace Vision_V1.Models
 
             public static string PrimaryDark { get; private set; } = "#F8F5EC";
             public static string PrimaryMedium { get; private set; } = "#FFFDF7";
+
+            public static string BeigeLight { get; set; } = "#E8DDCD";
+            public static string BeigeMedium { get; set; } = "#B3936A";
 
             private ColorSchema(string name, string c1, string c2, string c3)
             {
@@ -222,6 +235,32 @@ namespace Vision_V1.Models
                     "Blue","Gray","Green","Red"
                 };
             }
+        }
+
+        public static List<string> GetTypesAsList(string name)
+        {
+            var types = new Types();
+            var props = types.GetType().GetProperties();
+            var items = new List<string>();
+
+            if (props != null && props.Any())
+            {
+                props.ToList().ForEach(prop =>
+                {
+                    if (prop.Name == name)
+                    {
+                        var typ = prop.PropertyType;
+                        FieldInfo[] fields = typ.GetFields();
+
+                        foreach (var field in fields)
+                        {
+                            items.Add(field.GetRawConstantValue().ToString());
+                        }
+                    }
+                });
+            }
+
+            return items;
         }
 
         public static List<string> GetTypesAsList<T>() where T : struct, IConvertible

@@ -1,0 +1,30 @@
+﻿@model Vision_V1.Models.Book
+
+@{
+    ViewBag.Name = "Create";
+    ViewBag.Controller = "Books";
+    Layout = "~/Views/Shared/Templates/FormBuilder.cshtml";
+    var page = Vision_V1.ViewModels.PageManager.Pages.Find(p => p.Name == (string)ViewBag.Name && p.Controller == (string)ViewBag.Controller);
+    var propertyCount = page.PropertyCount;
+    List<int> propertySizes = page.PropertySizes;
+}
+
+@section Title{Create a new Book}
+
+@section HiddenFields{@Html.HiddenFor(model => model.ProjectId)}
+
+@{
+    var formGroups = Vision_V1.Models.PropertyBuilder.GetProps<Vision_V1.Models.Book>(Model, propertySizes);
+}
+
+@section FormGroups
+{
+    @Html.Partial("~/Views/Shared/Templates/FormGroups.cshtml", formGroups, new ViewDataDictionary(formGroups))
+}
+
+@section CancelButton
+{
+    <button type="button" class="btn btn-danger shadow" onclick="location.href='@Url.Action("Home", "Books")'">
+        <img src="~/Content/Icons/CancelWhite.png" alt="Cancel" class="small_image" />
+    </button>
+}

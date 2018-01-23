@@ -25,7 +25,10 @@
 }
 
 @section Attribute3Name{@Html.LabelFor(model => model.EstimatedDuration, htmlAttributes: new { @class = "control-label col-lg-3" })}
-@section Attribute3Edit{@Html.EnumDropDownListFor(model => model.EstimatedDuration, htmlAttributes: new { @class = "form-control" })}
+@section Attribute3Edit{
+    @Html.EditorFor(model => model.EstimatedDuration, new { htmlAttributes = new { @class = "form-control" } })
+    @Html.ValidationMessageFor(model => model.EstimatedDuration, "", new { @class = "text-danger" })
+}
 
 @section CancelButton{
     <button type="button" class="btn btn-danger shadow shadow" onclick="location.href='@Url.Action("Details", "Books")'">

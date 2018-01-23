@@ -12,6 +12,9 @@ namespace Vision_V1.Models
     {
         public int? OrderID { get; set; }
 
+        [Display(Name="Point-in-time")]
+        public string PointInTime { get; set; }
+
         public Mood Mood { get; set; } = Mood.NS;
 
         public Weather Weather { get; set; } = Weather.NS;

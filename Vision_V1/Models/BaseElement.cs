@@ -52,8 +52,8 @@ namespace Vision_V1.Models
 
     public class BaseElementWD: BaseElementWN
     {
-        [Display(Name = "Estimated duration")]
-        public Duration EstimatedDuration { get; set; } = Duration.NS;
+        [Display(Name = "Duration")]
+        public string EstimatedDuration { get; set; }
 
         [DataType(DataType.MultilineText)]
         public string Summary { get; set; }

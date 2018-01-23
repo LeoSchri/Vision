@@ -170,6 +170,27 @@ namespace Vision_V1.Controllers
             return RedirectToAction("Edit", new { id = book.ID });
         }
 
+        public ActionResult RemovePlotline(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Book book = db.Books.Find(id);
+            if (book == null)
+            {
+                return HttpNotFound();
+            }
+
+            db.Entry(book).State = EntityState.Modified;
+            book.PlotlineId = null;
+            book.MainPlotline = null;
+            db.SaveChanges();
+
+            return Details(id);
+
+        }
+
         // POST: Books/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]

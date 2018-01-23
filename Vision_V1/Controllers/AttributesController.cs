@@ -35,7 +35,24 @@ namespace Vision_V1.Controllers
         public ActionResult Create()
         {
             pc.RemovePage("Index", "Attributes");
-            return pc.AddCreatePage("Attributes", new Models.Attribute(), 2, new List<int>() { 2,2 });
+            return pc.AddCreatePage("Attributes", new Models.Attribute(), 3, new List<int>() { 2, 1, 1 });
+        }
+
+        public ActionResult Edit(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Models.Attribute attribute = db.Attributes.Find(id);
+            if (attribute == null)
+            {
+                return HttpNotFound();
+            }
+
+            PageManager.CurrentAttribute = attribute;
+            pc.RemovePage("Index", "Attributes");
+            return pc.AddEditPage("Attributes", attribute, 3, new List<int>() { 2, 1, 1 });
         }
 
         public ActionResult Delete(int? id)
@@ -58,7 +75,7 @@ namespace Vision_V1.Controllers
         // POST: Attributes/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Name,Size")] Models.Attribute attribute)
+        public ActionResult Create([Bind(Include = "Name,Size,ShownInTableYN")] Models.Attribute attribute)
         {
             pc.RemovePage("Create", "Attributes");
 
@@ -95,6 +112,26 @@ namespace Vision_V1.Controllers
             }
 
             return RedirectToAction("Create");
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Edit([Bind(Include = "ID,Name,Size,ShownInTableYN")] Models.Attribute attribute)
+        {
+            pc.RemovePage("Edit", "Attributes");
+
+            if (ModelState.IsValid)
+            {
+                db.Entry(attribute).State = EntityState.Modified;
+                attribute.ProjectId = PageManager.CurrentProject.ID;
+                attribute.LastModified = DateTime.Now;
+
+                db.SaveChanges();
+
+                return RedirectToAction("Home");
+            }
+
+            return RedirectToAction("Edit");
         }
 
         // POST: Attributes/Delete/5

@@ -11,61 +11,55 @@
 @section Attribute1Name{@Html.DisplayNameFor(model => model.Name)}
 @section Attribute1Prop{@Html.DisplayFor(model => model.Name)}
 
-@section Attribute2Name{@Html.DisplayNameFor(model => model.Summary)}
-@section Attribute2Prop{@Html.DisplayFor(model => model.Summary)}
+@section Attribute2Name{@Html.DisplayNameFor(model => model.EstimatedDuration)}
+@section Attribute2Prop{@Html.DisplayFor(model => model.EstimatedDuration)}
 
-@section Attribute3Name{@Html.DisplayNameFor(model => model.Story)}
-@section Attribute3Prop{@Html.DisplayFor(model => model.Story)}
+@section Attribute3Name{@Html.DisplayNameFor(model => model.PointInTime)}
+@section Attribute3Prop{@Html.DisplayFor(model => model.PointInTime)}
 
-@section Attribute4Name{@Html.DisplayNameFor(model => model.Mood)}
-@section Attribute4Prop{@Html.DisplayFor(model => model.Mood)}
+@section Attribute4Name{@Html.DisplayNameFor(model => model.Summary)}
+@section Attribute4Prop{@Html.DisplayFor(model => model.Summary)}
 
-@section Attribute8Name{@Html.DisplayNameFor(model => model.Weather)}
-@section Attribute8Prop{@Html.DisplayFor(model => model.Weather)}
+@section Attribute5Name{@Html.DisplayNameFor(model => model.Story)}
+@section Attribute5Prop{@Html.DisplayFor(model => model.Story)}
 
-@section Attribute7Name{@Html.DisplayNameFor(model => model.Location)}
-@section Attribute7Prop{
+@section Attribute6Name{@Html.DisplayNameFor(model => model.Mood)}
+@section Attribute6Prop{@Html.DisplayFor(model => model.Mood)}
+
+@section Attribute9Name{@Html.DisplayNameFor(model => model.Weather)}
+@section Attribute9Prop{@Html.DisplayFor(model => model.Weather)}
+
+@section Attribute8Name{
+    @Html.DisplayNameFor(model => model.Location)
+}
+@section Attribute8Prop{
     @if (Model.LocationId != null)
     {
-        @Html.DisplayFor(model => model.Location.Name)
+        <span>@Html.DisplayFor(model => model.Location.Name)</span>
     }
     else
     {
-        <span>None</span>
+        <span>NS</span>
     }
 }
 
-@section Attribute5Name{@Html.DisplayNameFor(model => model.POVCharacter)}
-@section Attribute5Prop{
+@section Attribute7Name{
+    @Html.DisplayNameFor(model => model.POVCharacter)
+}
+@section Attribute7Prop{
     @if (Model.POVCharacterId != null)
     {
-        @Html.DisplayFor(model => model.POVCharacter.Name)
+        <span>@Html.DisplayFor(model => model.POVCharacter.Name)</span>
     }
     else
     {
-        <span>None</span>
+        <span>NS</span>
     }
 }
 
-@section Attribute6Name{@Html.DisplayNameFor(model => model.AttendantCharacters)}
-@section Attribute6Prop{
-    @if (Model.AttendantCharacters != null && Model.AttendantCharacters.Any())
-    {
-        var names = new List<string>();
-        foreach (var character in Model.AttendantCharacters)
-        {
-            names.Add(character.Name);
-        }
-        <span>@string.Join(",", names)</span>
-    }
-    else
-    {
-        <span>None</span>
-    }
-}
 
-@section Attribute9Name{@Html.DisplayNameFor(model => model.LastModified)}
-@section Attribute9Prop{@Html.DisplayFor(model => model.LastModified)}
+@section Attribute10Name{@Html.DisplayNameFor(model => model.LastModified)}
+@section Attribute10Prop{@Html.DisplayFor(model => model.LastModified)}
 
 @section CancelButton{
     <button type="button" class="btn btn-danger shadow" onclick="location.href='@Url.Action((string)Session["destinedMethod"], (string)Session["destinedController"])'">

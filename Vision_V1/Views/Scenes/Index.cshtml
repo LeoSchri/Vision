@@ -9,11 +9,11 @@
 
 @section Links{
     <span class="right">
+        <button type="button" class="btn btn-primary" onclick="location.href='@Url.Action("Create","Scenes")'">
+            <img src="~/Content/Icons/New.png" alt="Create scene" class="small_image" />
+        </button>
         @if(Vision_V1.ViewModels.PageManager.CurrentPlotline != null)
         {
-            <button type="button" class="btn btn-primary" onclick="location.href='@Url.Action("Create","Scenes")'">
-                <img src="~/Content/Icons/New.png" alt="Create scene" class="small_image" />
-            </button>
             <button type="button" class="btn btn-primary" onclick="location.href='@Url.Action("PickForP","Scenes")'">
                 <img src="~/Content/Icons/Add.png" alt="Pick scenes" class="small_image" />
             </button>
@@ -59,12 +59,18 @@
                 <th>
                     @Html.DisplayNameFor(model => model.FirstOrDefault().Name)
                 </th>
-                @if(Vision_V1.ViewModels.PageManager.CurrentPlotline == null)
+                @if (Vision_V1.ViewModels.PageManager.CurrentPlotline == null)
                 {
                     <th>
                         @Html.DisplayNameFor(model => model.FirstOrDefault().Plotlines)
                     </th>
                 }
+                <th>
+                    @Html.DisplayNameFor(model => model.FirstOrDefault().EstimatedDuration)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.FirstOrDefault().PointInTime)
+                </th>
                 <th>
                     @Html.DisplayNameFor(model => model.FirstOrDefault().Mood)
                 </th>
@@ -115,6 +121,12 @@
                             }
                         </td>
                     }
+                    <td>
+                        @Html.DisplayFor(modelItem => scene.EstimatedDuration)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => scene.PointInTime)
+                    </td>
                     <td>
                         @Html.DisplayFor(modelItem => scene.Mood)
                     </td>

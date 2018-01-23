@@ -170,6 +170,27 @@ namespace Vision_V1.Controllers
             return RedirectToAction("Edit", new { id = arc.ID });
         }
 
+        public ActionResult RemovePlotline(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Arc arc = db.Arcs.Find(id);
+            if (arc == null)
+            {
+                return HttpNotFound();
+            }
+
+            db.Entry(arc).State = EntityState.Modified;
+            arc.PlotlineId = null;
+            arc.MainPlotline = null;
+            db.SaveChanges();
+
+            return Details(id);
+
+        }
+
         // POST: Arcs/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]

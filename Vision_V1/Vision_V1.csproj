@@ -296,6 +296,18 @@
     <Compile Include="Migrations\201801101628035_Scene_Story.Designer.cs">
       <DependentUpon>201801101628035_Scene_Story.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201801221628258_Attributes_Enhancement.cs" />
+    <Compile Include="Migrations\201801221628258_Attributes_Enhancement.Designer.cs">
+      <DependentUpon>201801221628258_Attributes_Enhancement.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201801221713004_Duration_string.cs" />
+    <Compile Include="Migrations\201801221713004_Duration_string.Designer.cs">
+      <DependentUpon>201801221713004_Duration_string.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201801221741316_Scene_PointInTime.cs" />
+    <Compile Include="Migrations\201801221741316_Scene_PointInTime.Designer.cs">
+      <DependentUpon>201801221741316_Scene_PointInTime.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Arc.cs" />
@@ -315,6 +327,7 @@
     <Compile Include="Models\Note.cs" />
     <Compile Include="Models\Plotline.cs" />
     <Compile Include="Models\Project.cs" />
+    <Compile Include="Models\PropertyBuilder.cs" />
     <Compile Include="Models\Relationship.cs" />
     <Compile Include="Models\RelationshipPhase.cs" />
     <Compile Include="Models\Scene.cs" />
@@ -505,7 +518,6 @@
     <Content Include="Views\RelationshipPhases\Delete.cshtml" />
     <Content Include="Views\RelationshipPhases\Details.cshtml" />
     <Content Include="Views\Plotlines\CreateChild.cshtml" />
-    <Content Include="Views\Scenes\IndexDS.cshtml" />
     <Content Include="Views\Plotlines\IndexDP.cshtml" />
     <Content Include="Views\Locations\Index.cshtml" />
     <Content Include="Views\Locations\List.cshtml" />
@@ -545,6 +557,12 @@
     <Content Include="Views\Information\DetailsC.cshtml" />
     <Content Include="Views\Information\EditChild.cshtml" />
     <Content Include="Views\Information\DeleteChild.cshtml" />
+    <Content Include="Views\Attributes\Edit.cshtml" />
+    <Content Include="Views\Shared\Templates\PageTemplate.cshtml" />
+    <Content Include="Views\Shared\Templates\FormBuilder.cshtml" />
+    <Content Include="Views\Shared\Templates\SiteBuilder.cshtml" />
+    <Content Include="Views\Books\Create_Exp.cshtml" />
+    <Content Include="Views\Shared\Templates\FormGroups.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -628,6 +646,15 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201801101628035_Scene_Story.resx">
       <DependentUpon>201801101628035_Scene_Story.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201801221628258_Attributes_Enhancement.resx">
+      <DependentUpon>201801221628258_Attributes_Enhancement.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201801221713004_Duration_string.resx">
+      <DependentUpon>201801221713004_Duration_string.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201801221741316_Scene_PointInTime.resx">
+      <DependentUpon>201801221741316_Scene_PointInTime.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

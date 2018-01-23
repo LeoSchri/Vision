@@ -9,7 +9,7 @@
 @section Title{@Model.Name}
 
 
-@section Links{
+@section TitleLinks{
     <button type="button" class="btn btn-primary" onclick="location.href='@Url.Action("Edit","Books", new { id = Model.ID })'">
         <img src="~/Content/Icons/Edit.png" alt="Load" class="small_image" />
     </button>
@@ -45,29 +45,11 @@
 @section Attribute3Name{@Html.DisplayNameFor(model => model.EstimatedDuration)}
 @section Attribute3Prop{@Html.DisplayFor(model => model.EstimatedDuration)}
 
-@section Attribute4Name{
-    @if (Model.PlotlineId != null)
-    {
-        <div class="padding-top-5">
-            @Html.DisplayNameFor(model => model.MainPlotline)
-        </div>
-    }
-    else
-    {
-        @Html.DisplayNameFor(model => model.MainPlotline)
-    }
-}
+@section Attribute4Name{@Html.DisplayNameFor(model => model.MainPlotline)}
 @section Attribute4Prop{
     @if (Model.PlotlineId != null)
     {
         @Html.DisplayFor(model => model.MainPlotline.Name)
-        <span>
-            (
-            <button type="button" class="btn btn-link" onclick="location.href='@Url.Action("Details","Plotlines", new { id = Model.PlotlineId })'">
-                To Plotline
-            </button>
-            )
-        </span>
     }
     else
     {
@@ -77,5 +59,26 @@
 
 @section Attribute5Name{@Html.DisplayNameFor(model => model.LastModified)}
 @section Attribute5Prop{@Html.DisplayFor(model => model.LastModified)}
+
+@section Links{
+    @if(Model.PlotlineId != null)
+    {
+        <button type="button" class="btn btn-warning" onclick="location.href='@Url.Action("Details","Plotlines", new { id=Model.PlotlineId})'">
+            View main plotline
+        </button>
+        <button type="button" class="btn btn-danger" onclick="location.href='@Url.Action("PickForMPB","Plotlines")'">
+            Change main plotline
+        </button>
+        <button type="button" class="btn btn-info" onclick="location.href='@Url.Action("RemovePlotline","Books", new { id = Model.ID })'">
+            Remove main plotline
+        </button>
+    }
+    else
+    {
+        <button type="button" class="btn btn-success" onclick="location.href='@Url.Action("PickForMPB","Plotlines")'">
+            Pick a main plotline
+        </button>
+    }
+}
 
 @section ListOf{@Html.Partial("~/Views/Arcs/Index.cshtml", Model.Arcs)}

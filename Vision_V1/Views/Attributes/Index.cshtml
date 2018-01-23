@@ -35,6 +35,10 @@
                 <th>
                     @Html.DisplayNameFor(model => model.FirstOrDefault().Size)
                 </th>
+                <th>
+
+                    @Html.DisplayNameFor(model => model.FirstOrDefault().ShowInTable)
+                </th>
                 @if (Model.Count > 1)
                 {
                     <th></th>
@@ -54,6 +58,16 @@
                     </td>
                     <td>
                         @Html.DisplayFor(modelItem => attribute.Size)
+                    </td>
+                    <td>
+                        @if (attribute.ShowInTable)
+                        {
+                            <span class="text-success">YES</span>
+                        }
+                        else
+                        {
+                            <span class="text-warning">NO</span>
+                        }
                     </td>
                     @if (Model.Count > 1)
                     {
@@ -76,6 +90,9 @@
                     }
                     <td>
                         <span class="right">
+                            <button type="button" class="btn btn-default" onclick="location.href='@Url.Action("Edit","Attributes", new { id = attribute.ID })'">
+                                <img src="~/Content/Icons/Edit.png" alt="Edit" class="small_image" />
+                            </button>
                             <button type="button" class="btn btn-default" onclick="location.href='@Url.Action("Delete","Attributes", new { id = attribute.ID })'">
                                 <img src="~/Content/Icons/Trash.png" alt="Delete" class="small_image" />
                             </button>

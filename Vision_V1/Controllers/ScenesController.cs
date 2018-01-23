@@ -73,16 +73,21 @@ namespace Vision_V1.Controllers
             }
 
             PageManager.CurrentScene = scene;
-            pc.RemoveAllPages("Characters");
-            pc.RemoveAllPages("CharacterEvolvements");
-            pc.RemoveAllPages("RelationshipPhases");
-            pc.RemoveAllPages("Locations");
-            return pc.AddDetailsPage("Scenes", scene, 8);
+            Home();
+            return pc.AddDetailsPage("Scenes", scene, 10);
         }
 
         public ActionResult Create()
         {
-            return pc.AddCreatePage("Scenes", new Scene(), 5, new List<int>() { 2, 3, 3, 1, 1 });
+            if(PageManager.CurrentPlotline != null)
+            {
+                return pc.AddCreatePage("Scenes", new Scene(), 7, new List<int>() { 2, 2, 2, 3, 3, 1, 1 });
+            }
+            else
+            {
+                var plotlineController = new PlotlinesController();
+                return plotlineController.Home();
+            }
         }
 
         public ActionResult Edit(int? id)
@@ -121,7 +126,7 @@ namespace Vision_V1.Controllers
 
             PageManager.CurrentScene = scene;
 
-            return pc.AddEditPage("Scenes", scene, 5, new List<int>() { 2, 3, 3, 1, 1 });
+            return pc.AddEditPage("Scenes", scene, 7, new List<int>() { 2, 2, 2, 3, 3, 1, 1 });
         }
 
         public ActionResult Delete(int? id)
@@ -160,7 +165,7 @@ namespace Vision_V1.Controllers
 
             PageManager.CurrentScene = scene;
 
-            return pc.AddDeletePage("Scenes", scene, 9);
+            return pc.AddDeletePage("Scenes", scene, 10);
         }
 
         public ActionResult PickForC()
@@ -223,7 +228,7 @@ namespace Vision_V1.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Mood,Weather,Name,Summary,Story")] Scene scene)
+        public ActionResult Create([Bind(Include = "Mood,Weather,Name,Summary,Story,EstimatedDuration,PointInTime")] Scene scene)
         {
             pc.RemovePage("Create","Scenes");
 
@@ -249,7 +254,7 @@ namespace Vision_V1.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "ID,Mood,Weather,Name,Summary,Story")] Scene scene)
+        public ActionResult Edit([Bind(Include = "ID,Mood,Weather,Name,Summary,Story,EstimatedDuration,PointInTime")] Scene scene)
         {
             pc.RemovePage("Edit","Scenes");
 

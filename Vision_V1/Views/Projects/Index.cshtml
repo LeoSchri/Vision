@@ -38,12 +38,11 @@
             @foreach (var project in projectList)
             {
                 var color = Vision_V1.Models.Types.ColorSchema.PrimaryDark;
-                var color2 = Vision_V1.Models.Types.ColorSchema.PrimaryDark;
                 if (Vision_V1.ViewModels.PageManager.CurrentProject != null && Vision_V1.ViewModels.PageManager.CurrentProject.ID == project.ID)
                 {
-                    color2 = Vision_V1.Models.Types.ColorSchema.Green.Medium;
+                    color = Vision_V1.Models.Types.ColorSchema.BeigeLight;
                 }
-                <tr style="background-color:@color; border: 3px solid @color2">
+                <tr style="background-color:@color;">
                     <td>
                         <span class="padding-2">@Html.DisplayFor(modelItem => project.Name)</span>
                     </td>

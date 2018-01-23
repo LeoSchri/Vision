@@ -9,7 +9,7 @@
 @section Title{@Model.Name}
 
 
-@section Links{
+@section TitleLinks{
     <button type="button" class="btn btn-primary" onclick="location.href='@Url.Action("Edit","Characters", new { id = Model.ID })'">
         <img src="~/Content/Icons/Edit.png" alt="Load" class="small_image" />
     </button>
@@ -49,28 +49,31 @@
     @{
         var attributes = Vision_V1.ViewModels.PageManager.Attributes;
     }
-    @for (int i = 0; i < attributes.Count; i++)
+    @if(attributes != null && attributes.Any())
     {
-        string value = " ";
-        if (Model.CharacterAttributes != null && Model.CharacterAttributes.Any())
+        for (int i = 0; i < attributes.Count; i++)
         {
-            value = Model.CharacterAttributes.ToList().Find(ca => ca.AttributeId == attributes[i].ID).Value;
-            if (value == null)
+            string value = " ";
+            if (Model.CharacterAttributes != null && Model.CharacterAttributes.Any())
             {
-                value = " ";
+                value = Model.CharacterAttributes.ToList().Find(ca => ca.AttributeId == attributes[i].ID).Value;
+                if (value == null)
+                {
+                    value = " ";
+                }
             }
-        }
-        <div class="row">
-            <div class="form-group">
-                <div class="col-lg-offset-1 col-lg-2 label2">
-                    @Html.DisplayName(attributes[i].Name)
-                </div>
-                <div class="col-lg-9">
-                    @value
-                    @*@Html.Display(value)*@
+            <div class="row">
+                <div class="form-group">
+                    <div class="col-lg-offset-1 col-lg-2 label2">
+                        @Html.DisplayName(attributes[i].Name)
+                    </div>
+                    <div class="col-lg-9">
+                        @value
+                        @*@Html.Display(value)*@
+                    </div>
                 </div>
             </div>
-        </div>
+        }
     }
 }
 

@@ -18,23 +18,35 @@
     @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
 }
 
-@section Attribute2Name{@Html.LabelFor(model => model.Summary, htmlAttributes: new { @class = "control-label col-lg-2" })}
+@section Attribute2Name{@Html.LabelFor(model => model.EstimatedDuration, htmlAttributes: new { @class = "control-label col-lg-3" })}
 @section Attribute2Edit{
+    @Html.EditorFor(model => model.EstimatedDuration, new { htmlAttributes = new { @class = "form-control" } })
+    @Html.ValidationMessageFor(model => model.EstimatedDuration, "", new { @class = "text-danger" })
+}
+
+@section Attribute3Name{@Html.LabelFor(model => model.PointInTime, htmlAttributes: new { @class = "control-label col-lg-3" })}
+@section Attribute3Edit{
+    @Html.EditorFor(model => model.PointInTime, new { htmlAttributes = new { @class = "form-control" } })
+    @Html.ValidationMessageFor(model => model.PointInTime, "", new { @class = "text-danger" })
+}
+
+@section Attribute4Name{@Html.LabelFor(model => model.Summary, htmlAttributes: new { @class = "control-label col-lg-3" })}
+@section Attribute4Edit{
     @Html.EditorFor(model => model.Summary, new { htmlAttributes = new { @class = "form-control" } })
     @Html.ValidationMessageFor(model => model.Summary, "", new { @class = "text-danger" })
 }
 
-@section Attribute3Name{@Html.LabelFor(model => model.Story, htmlAttributes: new { @class = "control-label col-lg-2" })}
-@section Attribute3Edit{
+@section Attribute5Name{@Html.LabelFor(model => model.Story, htmlAttributes: new { @class = "control-label col-lg-3" })}
+@section Attribute5Edit{
     @Html.EditorFor(model => model.Story, new { htmlAttributes = new { @class = "form-control" } })
     @Html.ValidationMessageFor(model => model.Story, "", new { @class = "text-danger" })
 }
 
-@section Attribute4Name{@Html.LabelFor(model => model.Mood, htmlAttributes: new { @class = "control-label col-lg-2" })}
-@section Attribute4Edit{@Html.EnumDropDownListFor(model => model.Mood, htmlAttributes: new { @class = "form-control" })}
+@section Attribute6Name{@Html.LabelFor(model => model.Mood, htmlAttributes: new { @class = "control-label col-lg-3" })}
+@section Attribute6Edit{@Html.EnumDropDownListFor(model => model.Mood, htmlAttributes: new { @class = "form-control" })}
 
-@section Attribute5Name{@Html.LabelFor(model => model.Weather, htmlAttributes: new { @class = "control-label col-lg-2" })}
-@section Attribute5Edit{@Html.EnumDropDownListFor(model => model.Weather, htmlAttributes: new { @class = "form-control" })}
+@section Attribute7Name{@Html.LabelFor(model => model.Weather, htmlAttributes: new { @class = "control-label col-lg-3" })}
+@section Attribute7Edit{@Html.EnumDropDownListFor(model => model.Weather, htmlAttributes: new { @class = "form-control" })}
 
 
 @section CancelButton{

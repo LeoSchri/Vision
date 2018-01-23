@@ -1,0 +1,32 @@
+﻿@{
+    ViewBag.Title = "PageTemplate";
+}
+
+@{
+    var controller = ViewBag.Controller;
+    var name = ViewBag.Name;
+    var page = Vision_V1.ViewModels.PageManager.Pages.Find(p => p.Name == (string)name && p.Controller == (string)controller);
+    var propertyCount = page.PropertyCount;
+    List<int> propertySizes = page.PropertySizes;
+}
+
+<div class="border">
+    <div class="container title">
+        <div class="row padding-5">
+            <div class="col-lg-7">
+                @RenderSection("Title", true)
+            </div>
+            <div class="col-lg-5">
+                <span class="right">
+                    @RenderSection("TitleLinks", false)
+                </span>
+            </div>
+        </div>
+    </div>
+
+    <div class="container top-margin-20 padding-bottom-10">
+        @RenderSection("Content", true)
+        @RenderSection("Links", false)
+        @RenderSection("SubContents", false)
+    </div>
+</div>
